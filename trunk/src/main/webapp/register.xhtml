@@ -8,10 +8,10 @@
 <body>
  
 <h:form>
-    姓名：<h:inputText value="#{identity.username}" /><br/>
-    邮箱：<h:inputText value="#{identity.email}"/><br/>
-    密码：<h:inputSecret value="#{identity.password}"/><br/>
-    再输一遍：<h:inputSecret value="#{identity.rePassword}"/><br/>
+    姓名：<h:inputText value="#{identity.user.username}" /><br/>
+    邮箱：<h:inputText value="#{identity.user.email}"/><br/>
+    密码：<h:inputSecret value="#{identity.user.password}"/><br/>
+    再输一遍：<h:inputSecret value="#{identity.user.rePassword}"/><br/>
     <h:commandButton action="#{identity.register}" value="注册"/>
 </h:form>
 

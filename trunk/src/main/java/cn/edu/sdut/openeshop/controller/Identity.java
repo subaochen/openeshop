@@ -1,54 +1,38 @@
 package cn.edu.sdut.openeshop.controller;
 
 import javax.enterprise.inject.Model;
+import javax.inject.Inject;
+
+import cn.edu.sdut.openeshop.data.UserStoreInMem;
+import cn.edu.sdut.openeshop.model.User;
 
 @Model
 public class Identity {
-	private String username;
-	private String password;
-	private String rePassword;
-	private String email;
+	private User user;
 	
-	public void register(){
-		if(password != null && password.equalsIgnoreCase(rePassword)){
-			System.out.println("user:" + username + " registered");
+	@Inject
+	UserStoreInMem userStoreInMem;
+
+	public void register() {
+		if (getUser().getPassword() != null
+				&& getUser().getPassword().equalsIgnoreCase(
+						getUser().getRePassword())) {
+			System.out.println("user:" + getUser().getUsername()
+					+ " registered");
+			if(userStoreInMem.userExists(getUser().getUsername())){
+				System.out.println("user:" + getUser().getUsername() + " has exists!");
+			} else {
+				userStoreInMem.addUser(user);
+			}
 		}
 	}
-	
-	public void hello(){
-		System.out.println("hello");
+
+	public User getUser() {
+		if(user == null) user = new User();
+		return user;
 	}
 
-	public String getUsername() {
-		return username;
+	public void setUser(User user) {
+		this.user = user;
 	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getRePassword() {
-		return rePassword;
-	}
-
-	public void setRePassword(String rePassword) {
-		this.rePassword = rePassword;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 }
