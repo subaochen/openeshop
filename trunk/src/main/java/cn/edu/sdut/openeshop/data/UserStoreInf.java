@@ -19,6 +19,13 @@ public interface UserStoreInf {
 	public void addUser(User user);
 	
 	/**
+	 * 根据用户名查找用户
+	 * @param username 用户名
+	 * @return User对象
+	 */
+	public User findUser(String username);
+	
+	/**
 	 * 列出所有的用户
 	 * @return 用户列表
 	 */
