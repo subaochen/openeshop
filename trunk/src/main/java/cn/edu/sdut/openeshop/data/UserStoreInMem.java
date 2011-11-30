@@ -1,5 +1,6 @@
 package cn.edu.sdut.openeshop.data;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +28,8 @@ public class UserStoreInMem implements UserStoreInf{
 
 	@Override
 	public List<User> getAllUsers() {
-		return (List<User>)userMap.values();
+		List<User> list = new ArrayList<User>(0);
+	    list.addAll(userMap.values());
+		return list;
 	}
 }
