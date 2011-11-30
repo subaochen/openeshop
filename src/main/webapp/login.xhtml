@@ -1,0 +1,15 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"> 
+
+<h:head><title>用户登录</title></h:head> 
+<body> 
+<h:form>
+	用户名：<h:inputText value="#{identity.user.username}"/><br />
+	密码：<h:inputSecret value="#{identity.user.password}" /><br/>
+	<h:commandButton value="登录" action="#{identity.login}" />
+</h:form>
+</body> 
+</html>

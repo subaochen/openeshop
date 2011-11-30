@@ -32,4 +32,9 @@ public class UserStoreInMem implements UserStoreInf{
 	    list.addAll(userMap.values());
 		return list;
 	}
+
+	@Override
+	public User findUser(String username) {
+		return userMap.get(username);
+	}
 }
