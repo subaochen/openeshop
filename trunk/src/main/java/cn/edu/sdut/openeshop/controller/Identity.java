@@ -4,6 +4,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import cn.edu.sdut.openeshop.data.UserStoreInMem;
 import cn.edu.sdut.openeshop.model.User;
@@ -14,7 +15,9 @@ public class Identity {
 
 	@Inject
 	UserStoreInMem userStoreInMem;
+
 	@Produces
+	@Named
 	@SessionScoped
 	private User currentUser;
 
@@ -45,16 +48,27 @@ public class Identity {
 		if (user == null || user.getUsername() == null
 				|| user.getUsername().isEmpty() || user.getPassword() == null
 				|| user.getPassword().isEmpty()
-				|| !userStoreInMem.userExists(user.getUsername()))
-			return "failed";
+				|| !userStoreInMem.userExists(user.getUsername())){
+			System.out.println("can not login in");
+			return "/login.jsf";
+		}
 
 		currentUser = userStoreInMem.findUser(user.getUsername());
 		if (user.getPassword().equalsIgnoreCase(currentUser.getPassword())) {
 			System.out.println("user:" + currentUser.getUsername() + " logged in");
-			return "loggedIn";
+			return "/cp/profile.jsf";
 		}
 
-		return "falied";
+		System.out.println("can not login in:other reason");
+		return "/login.jsf";
+	}
+	
+	public boolean isLoggedIn(){
+		return currentUser != null;
+	}
+	
+	public void logout(){
+		currentUser = null;
 	}
 
 	public User getUser() {
@@ -65,7 +79,7 @@ public class Identity {
 
 	public void setUser(User user) {
 		this.user = user;
-	}
+	}	
 
 	public User getCurrentUser() {
 		return currentUser;

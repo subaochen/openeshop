@@ -6,7 +6,8 @@
 
 <h:head><title>用户登录</title></h:head> 
 <body> 
-<h:form>
+<h:outputText value="您已经登录过了" rendered="#{identity.loggedIn}"/>
+<h:form rendered="#{not identity.loggedIn}">
 	用户名：<h:inputText value="#{identity.user.username}"/><br />
 	密码：<h:inputSecret value="#{identity.user.password}" /><br/>
 	<h:commandButton value="登录" action="#{identity.login}" />
