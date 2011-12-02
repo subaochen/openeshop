@@ -7,6 +7,10 @@
 <h:head><title>修改用户个人资料</title></h:head> 
 <body> 
 <h:messages/>
-欢迎来到<h:outputText value="#{currentUser.username}"/>的控制中心！
+欢迎来到<h:outputText value="#{currentUser.username}"/>的控制中心，点
+<h:form>
+    <h:commandButton value="退出" action="#{identity.logout}"/>
+</h:form>
+退出登录！
 </body> 
 </html>
