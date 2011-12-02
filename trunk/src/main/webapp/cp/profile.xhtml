@@ -12,5 +12,13 @@
     <h:commandButton value="退出" action="#{identity.logout}"/>
 </h:form>
 退出登录！
+
+<p>修改个人资料</p>
+<h:form>
+	邮箱：<h:inputText value="#{currentUser.email}"/><br />
+	密码：<h:inputSecret value="#{currentUser.password}" /><br />
+	再输一遍：<h:inputSecret value="#{currentUser.rePassword}" /><br />
+	<h:commandButton value="保存" action="#{userHelper.saveProfile}"/>
+</h:form>
 </body> 
 </html>

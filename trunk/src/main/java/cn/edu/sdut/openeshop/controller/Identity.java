@@ -22,6 +22,7 @@ public class Identity {
 	@Produces
 	@Named
 	@SessionScoped
+	@LoggedIn
 	private User currentUser;
 
 	public void register() {
