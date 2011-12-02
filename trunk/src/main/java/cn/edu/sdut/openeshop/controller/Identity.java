@@ -73,8 +73,10 @@ public class Identity {
 		return currentUser != null;
 	}
 	
-	public void logout(){
+	public String logout(){
 		currentUser = null;
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("您已退出登录，请重新登录"));
+		return "/login.jsf";
 	}
 
 	public User getUser() {
