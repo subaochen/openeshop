@@ -3,6 +3,9 @@ package cn.edu.sdut.openeshop.controller;
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.view.facelets.FaceletContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -50,16 +53,19 @@ public class Identity {
 				|| user.getPassword().isEmpty()
 				|| !userStoreInMem.userExists(user.getUsername())){
 			System.out.println("can not login in");
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("登录失败，用户名或者密码错误"));
 			return "/login.jsf";
 		}
 
 		currentUser = userStoreInMem.findUser(user.getUsername());
 		if (user.getPassword().equalsIgnoreCase(currentUser.getPassword())) {
 			System.out.println("user:" + currentUser.getUsername() + " logged in");
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("欢迎您，" + currentUser.getUsername()));
 			return "/cp/profile.jsf";
 		}
 
 		System.out.println("can not login in:other reason");
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("登录失败，请联系管理员"));
 		return "/login.jsf";
 	}
 	
