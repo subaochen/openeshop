@@ -13,8 +13,8 @@ public class UserHelper {
 	@Inject
 	UserStoreInMem userStoreInMem;
 	
-	// TODO 这里如何避免使用LoggedIn而不会产生歧义？
-	@Inject @LoggedIn
+	@Inject 
+	@LoggedIn
 	User currentUser;
 	
 	/**
