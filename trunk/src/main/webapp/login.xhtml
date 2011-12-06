@@ -9,8 +9,8 @@
 <h:messages />
 <h:outputText value="您已经登录过了" rendered="#{identity.loggedIn}"/>
 <h:form rendered="#{not identity.loggedIn}">
-	用户名：<h:inputText value="#{identity.user.username}"/><br />
-	密码：<h:inputSecret value="#{identity.user.password}" /><br/>
+	用户名：<h:inputText value="#{credentials.username}"/><br />
+	密码：<h:inputSecret value="#{credentials.password}" /><br/>
 	<h:commandButton value="登录" action="#{identity.login}" />
 </h:form>
 </body> 

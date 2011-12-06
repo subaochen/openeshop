@@ -14,9 +14,9 @@ import cn.edu.sdut.openeshop.model.User;
 
 @Model
 public class Identity {
-
-	private User user;
-
+	@Inject
+	Credentials credentials;
+	
 	@Inject
 	UserStoreInMem userStoreInMem;
 
@@ -25,8 +25,6 @@ public class Identity {
 	@SessionScoped
 	@LoggedIn
 	private User currentUser;
-
-
 
 	/**
 	 * 登录
@@ -37,17 +35,18 @@ public class Identity {
 	 */
 	public String login() {
 		// 确保用户输入了用户名和密码，并且用户名已经注册过
-		if (user == null || user.getUsername() == null
-				|| user.getUsername().isEmpty() || user.getPassword() == null
-				|| user.getPassword().isEmpty()
-				|| !userStoreInMem.userExists(user.getUsername())){
+		// TODO 通过JSF的表单验证防止用户名和密码为空
+		if (credentials.getUsername() == null
+				|| credentials.getUsername().isEmpty() || credentials.getPassword() == null
+				|| credentials.getPassword().isEmpty()
+				|| !userStoreInMem.userExists(credentials.getUsername())){
 			System.out.println("can not login in");
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("登录失败，用户名或者密码错误"));
 			return "/login.jsf";
 		}
 
-		currentUser = userStoreInMem.findUser(user.getUsername());
-		if (user.getPassword().equalsIgnoreCase(currentUser.getPassword())) {
+		currentUser = userStoreInMem.findUser(credentials.getUsername());
+		if (credentials.getPassword().equalsIgnoreCase(currentUser.getPassword())) {
 			System.out.println("user:" + currentUser.getUsername() + " logged in");
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("欢迎您，" + currentUser.getUsername()));
 			return "/cp/profile.jsf";
@@ -67,16 +66,6 @@ public class Identity {
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("您已退出登录，请重新登录"));
 		return "/login.jsf";
 	}
-
-	public User getUser() {
-		if (user == null)
-			user = new User();
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}	
 
 	public User getCurrentUser() {
 		return currentUser;
