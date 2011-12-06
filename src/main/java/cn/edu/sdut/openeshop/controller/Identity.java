@@ -14,6 +14,7 @@ import cn.edu.sdut.openeshop.model.User;
 
 @Model
 public class Identity {
+
 	private User user;
 
 	@Inject
@@ -25,20 +26,7 @@ public class Identity {
 	@LoggedIn
 	private User currentUser;
 
-	public void register() {
-		if (getUser().getPassword() != null
-				&& getUser().getPassword().equalsIgnoreCase(
-						getUser().getRePassword())) {
-			System.out.println("user:" + getUser().getUsername()
-					+ " registered");
-			if (userStoreInMem.userExists(getUser().getUsername())) {
-				System.out.println("user:" + getUser().getUsername()
-						+ " has exists!");
-			} else {
-				userStoreInMem.addUser(user);
-			}
-		}
-	}
+
 
 	/**
 	 * 登录
