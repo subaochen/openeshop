@@ -26,12 +26,23 @@ body {
     padding: 0 15px 5px 15px;
     margin: 10px 0 10px 0;
 }
+
+#sidebar h1 {
+	font-size: 1.2em;
+	border-bottom: 1px solid #000000;
+	text-align: center;
+}
+
+#sidebar h2 {
+	font-size: 1.1em;
+	text-align: left;
+}
 #sidebar ul {
     padding-left: 30px;
 }
 
 #content {
-	width: 700px;
+	width: 680px;
 	float: right;
 	margin: 10px 0 10px 0;
 	background: #FFFFFF;

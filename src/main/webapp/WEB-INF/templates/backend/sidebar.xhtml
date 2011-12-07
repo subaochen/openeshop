@@ -7,8 +7,9 @@
                  xmlns:f="http://java.sun.com/jsf/core"
                  xmlns:s="http://jboss.com/products/seam/taglib">
 
-<p style="text-align:center">菜单</p>
+<h1>菜单</h1>
+<h2>管理中心</h2>
 <ul>
-    <li>菜单</li>
+    <li><h:outputLink value="#{request.contextPath}/admin/userlist.jsf">用户列表</h:outputLink></li>
 </ul>
 </ui:composition>
