@@ -6,9 +6,12 @@
                  xmlns:h="http://java.sun.com/jsf/html"
                  xmlns:f="http://java.sun.com/jsf/core">
 
-<h1>菜单</h1>
-<h2>管理中心</h2>
-<ul>
-    <li><h:outputLink value="#{request.contextPath}/admin/userlist.jsf">用户列表</h:outputLink></li>
-</ul>
+<div id="topmenu">
+  <ul id="simple-menu">
+    <li><a href="#" class="current"><span>首页</span></a></li>
+    <li><a href="#"><span>服装</span></a></li>
+    <li><a href="#"><span>鞋帽</span></a></li>
+  </ul>
+</div>
+
 </ui:composition>

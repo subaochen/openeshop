@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#login.xhtml" PATH="/login.xhtml"
+  SHAPE="240,64,50,57" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#login.xhtml:0" NAME="item"
+   PATH="/login.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="loggedIn:#{identity.login}:#cp#profile.xhtml" NAME="output"
+    PATH="/cp/profile.xhtml" TARGET="rules:#cp#profile.xhtml"
+    TITLE="#{identity.login}:loggedIn" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="failed:#{identity.login}:#login.xhtml"
+    NAME="output1" PATH="/login.xhtml" TARGET="rules:#login.xhtml"
+    TITLE="#{identity.login}:failed" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#cp#profile.xhtml" PATH="/cp/profile.xhtml"
+  SHAPE="544,56,50,25" model-entity="JSFProcessGroup" persistent="true"/>
+</PROCESS>
