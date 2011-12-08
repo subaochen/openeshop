@@ -1,19 +1,24 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"> 
-
-<h:head></h:head> 
-<body>
- 
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      template="/WEB-INF/templates/front/template.xhtml"> 
+<ui:define name="content"> 
+<h1 class="title">用户注册</h1>
 <h:form>
-    姓名：<h:inputText value="#{register.user.username}" /><br/>
-    邮箱：<h:inputText value="#{register.user.email}"/><br/>
-    密码：<h:inputSecret value="#{register.user.password}"/><br/>
-    再输一遍：<h:inputSecret value="#{register.rePassword}"/><br/>
+    <h:panelGrid columns="2" rendered="#{!identity.loggedIn}">
+        <h:outputLabel for="username">姓名：</h:outputLabel>
+        <h:inputText value="#{register.user.username}" id="username"/>
+        <h:outputLabel for="email">邮箱：</h:outputLabel>
+        <h:inputText value="#{register.user.email}" id="email"/>
+        <h:outputLabel for="password">密码：</h:outputLabel>
+        <h:inputSecret value="#{register.user.password}" id="password"/>
+        <h:outputLabel for="rePassword">再输一遍：</h:outputLabel>
+        <h:inputSecret value="#{register.user.rePassword}" id="rePassword"/>        
+    </h:panelGrid>
     <h:commandButton action="#{register.register}" value="注册"/>
 </h:form>
 
-</body> 
-</html>
+</ui:define>
+</ui:composition>
