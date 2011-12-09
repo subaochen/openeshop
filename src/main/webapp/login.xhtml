@@ -1,17 +1,22 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"> 
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      template="/WEB-INF/templates/front/template.xhtml"> 
+<ui:define name="content"> 
+<h1 class="title">用户登录</h1>
 
-<h:head><title>用户登录</title></h:head> 
-<body> 
-<h:messages />
 <h:outputText value="您已经登录过了" rendered="#{identity.loggedIn}"/>
 <h:form rendered="#{not identity.loggedIn}">
-	用户名：<h:inputText value="#{credentials.username}"/><br />
-	密码：<h:inputSecret value="#{credentials.password}" /><br/>
+    <h:panelGrid columns="2">
+	    <h:outputLabel for="username">用户名：</h:outputLabel>
+	    <h:inputText value="#{credentials.username}" id="username"/>
+	    <h:outputLabel for="password">密码：</h:outputLabel>
+		<h:inputSecret value="#{credentials.password}" id="password"/>
+	</h:panelGrid>
 	<h:commandButton value="登录" action="#{identity.login}" />
 </h:form>
-</body> 
-</html>
+
+</ui:define>
+</ui:composition>

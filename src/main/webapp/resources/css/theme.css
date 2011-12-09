@@ -6,9 +6,17 @@ body {
     font-size: 0.9em;
 }
 #header {
+	position: relative;
 	height:70px;
 	background: #FFFFFF url(#{request.contextPath}/resources/gfx/openeshop.png) no-repeat;
 	border-bottom: 2px solid #666666;
+}
+#welcome {
+	position: absolute;
+	width:200px;
+	height:20px;
+	top: 10px;
+	right: 0px;
 }
 #container {
     margin: 0 auto;

@@ -15,7 +15,7 @@
         <h:outputLabel for="password">密码：</h:outputLabel>
         <h:inputSecret value="#{register.user.password}" id="password"/>
         <h:outputLabel for="rePassword">再输一遍：</h:outputLabel>
-        <h:inputSecret value="#{register.user.rePassword}" id="rePassword"/>        
+        <h:inputSecret value="#{register.rePassword}" id="rePassword"/>        
     </h:panelGrid>
     <h:commandButton action="#{register.register}" value="注册"/>
 </h:form>

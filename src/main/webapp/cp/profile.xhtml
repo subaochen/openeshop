@@ -1,24 +1,23 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    template="/WEB-INF/templates/backend/template.xhtml">
+<ui:define name="content">
 
-<h:head><title>修改用户个人资料</title></h:head> 
-<body> 
-<h:messages/>
-欢迎来到<h:outputText value="#{currentUser.username}"/>的控制中心，点
+<h1 class="title">修改个人资料</h1>
 <h:form>
-    <h:commandButton value="退出" action="#{identity.logout}"/>
-</h:form>
-退出登录！
-
-<p>修改个人资料</p>
-<h:form>
-	邮箱：<h:inputText value="#{currentUser.email}"/><br />
-	密码：<h:inputSecret value="#{currentUser.password}" /><br />
-	再输一遍：<h:inputSecret value="#{currentUser.rePassword}" /><br />
+    <h:panelGrid columns="2">
+        <h:outputLabel for="email">邮箱：</h:outputLabel>        
+	    <h:inputText value="#{currentUser.email}" id="email"/>
+	    <h:outputLabel for="password">密码：</h:outputLabel>
+	    <h:inputSecret value="#{currentUser.password}" id="password"/>
+	    <h:outputLabel for="rePassword">再输一遍：</h:outputLabel>
+	    <h:inputSecret value="#{currentUser.rePassword}" id="rePassword"/>
+	</h:panelGrid>
 	<h:commandButton value="保存" action="#{userHelper.saveProfile}"/>
 </h:form>
-</body> 
-</html>
+
+</ui:define>
+</ui:composition>
