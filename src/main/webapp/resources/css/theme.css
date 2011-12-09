@@ -87,3 +87,7 @@ span.invalid {
 	border-bottom: 2px solid #666666;
 	padding-left: 5px;
 }
+.error {
+	font-weight: bold;
+	color:red;
+}

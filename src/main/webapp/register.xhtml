@@ -7,15 +7,34 @@
 <ui:define name="content"> 
 <h1 class="title">用户注册</h1>
 <h:form>
-    <h:panelGrid columns="2" rendered="#{!identity.loggedIn}">
+    <h:panelGrid columns="3" rendered="#{!identity.loggedIn}">
         <h:outputLabel for="username">姓名：</h:outputLabel>
-        <h:inputText value="#{register.user.username}" id="username"/>
+        <h:inputText value="#{register.user.username}" id="username" 
+            required="true"
+            requiredMessage="姓名是必填的！"
+            validatorMessage="姓名长度不符合要求！">
+            <f:validateLength minimum="3" maximum="32"/>
+        </h:inputText>
+        <h:message for="username" styleClass="error"/>
         <h:outputLabel for="email">邮箱：</h:outputLabel>
         <h:inputText value="#{register.user.email}" id="email"/>
+        <h:message for="email" styleClass="error"/>
         <h:outputLabel for="password">密码：</h:outputLabel>
-        <h:inputSecret value="#{register.user.password}" id="password"/>
+        <h:inputSecret value="#{register.user.password}" id="password"
+            required="true"
+            requiredMessage="必须设置密码！"
+            validatorMessage="密码长度至少3个字符！">
+            <f:validateLength minmum="3"/>
+        </h:inputSecret>
+        <h:message for="password" styleClass="error"/>
         <h:outputLabel for="rePassword">再输一遍：</h:outputLabel>
-        <h:inputSecret value="#{register.rePassword}" id="rePassword"/>        
+        <h:inputSecret value="#{register.rePassword}" id="rePassword"
+            required="true"
+            requiredMessage="必须再输入一遍密码！"
+            validatorMessage="密码长度至少3个字符！">
+            <f:validateLength minmum="3"/>
+        </h:inputSecret>
+        <h:message for="rePassword" styleClass="error"/>        
     </h:panelGrid>
     <h:commandButton action="#{register.register}" value="注册"/>
 </h:form>
