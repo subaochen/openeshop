@@ -1,22 +1,21 @@
 package cn.edu.sdut.openeshop.controller;
 
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Alternative;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import cn.edu.sdut.openeshop.data.UserStoreInMem;
-import cn.edu.sdut.openeshop.model.User;
 
 @Named
 @RequestScoped
-public class Register {
-	private User user = new User();
-	private String rePassword;
+@Alternative
+public class Register extends RegisterBase implements RegisterInf{
 
 	@Inject
-	UserStoreInMem userStoreInMem;
+	private UserStoreInMem userStoreInMem;
 
 	public String register() {
 		if (getUser().getPassword() != null
@@ -38,22 +37,6 @@ public class Register {
 		System.out.println("user=" + user);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("两次输入的密码不一致，请重新注册！"));
 		return "/register.jsf";
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public String getRePassword() {
-		return rePassword;
-	}
-
-	public void setRePassword(String rePassword) {
-		this.rePassword = rePassword;
 	}
 
 }

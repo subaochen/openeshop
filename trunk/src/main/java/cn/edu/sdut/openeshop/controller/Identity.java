@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import cn.edu.sdut.openeshop.data.UserStoreInMem;
-import cn.edu.sdut.openeshop.model.User;
+import cn.edu.sdut.openeshop.model.Member;
 
 @Model
 public class Identity {
@@ -24,7 +24,7 @@ public class Identity {
 	@Named
 	@SessionScoped
 	@LoggedIn
-	private User currentUser;
+	private Member currentUser;
 
 	/**
 	 * 登录
@@ -67,11 +67,11 @@ public class Identity {
 		return "/login.jsf";
 	}
 
-	public User getCurrentUser() {
+	public Member getCurrentUser() {
 		return currentUser;
 	}
 
-	public void setCurrentUser(User currentUser) {
+	public void setCurrentUser(Member currentUser) {
 		this.currentUser = currentUser;
 	}
 }

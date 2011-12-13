@@ -2,7 +2,7 @@ package cn.edu.sdut.openeshop.data;
 
 import java.util.List;
 
-import cn.edu.sdut.openeshop.model.User;
+import cn.edu.sdut.openeshop.model.Member;
 
 public interface UserStoreInf {
 	/**
@@ -16,18 +16,18 @@ public interface UserStoreInf {
 	 * 将用户user保存起来
 	 * @param user
 	 */
-	public void addUser(User user);
+	public void addUser(Member user);
 	
 	/**
 	 * 根据用户名查找用户
 	 * @param username 用户名
 	 * @return User对象
 	 */
-	public User findUser(String username);
+	public Member findUser(String username);
 	
 	/**
 	 * 列出所有的用户
 	 * @return 用户列表
 	 */
-	public List<User> getAllUsers();
+	public List<Member> getAllUsers();
 }
