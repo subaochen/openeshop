@@ -4,7 +4,7 @@
 <datasources>    
    <local-tx-datasource>
       <jndi-name>openeshopDatasource</jndi-name>
-      <use-java-context>false</use-java-context>
+      <use-java-context>true</use-java-context>
       <connection-url>jdbc:postgresql://localhost/openeshop</connection-url>
       <driver-class>org.postgresql.Driver</driver-class>
       <user-name>postgres</user-name>

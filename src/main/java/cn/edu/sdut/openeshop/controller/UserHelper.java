@@ -6,7 +6,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import cn.edu.sdut.openeshop.data.UserStoreInMem;
-import cn.edu.sdut.openeshop.model.User;
+import cn.edu.sdut.openeshop.model.Member;
 
 @Named
 public class UserHelper {
@@ -15,20 +15,20 @@ public class UserHelper {
 	
 	@Inject 
 	@LoggedIn
-	User currentUser;
+	Member currentUser;
 	
 	/**
 	 * 保存个人资料
 	 * @return
 	 */
 	public String saveProfile(){
-		System.out.println("currentUser=" + currentUser);
-		if(!currentUser.getPassword().equalsIgnoreCase(currentUser.getRePassword())){
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("两次输入密码不一致，无法保存用户个人资料"));	
-		} else {
-		    userStoreInMem.addUser(currentUser);
-		    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("成功保存用户个人资料"));
-		}
+//		System.out.println("currentUser=" + currentUser);
+//		if(!currentUser.getPassword().equalsIgnoreCase(currentUser.getRePassword())){
+//			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("两次输入密码不一致，无法保存用户个人资料"));	
+//		} else {
+//		    userStoreInMem.addUser(currentUser);
+//		    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("成功保存用户个人资料"));
+//		}
 		
 		return "/profile.jsf";
 	}

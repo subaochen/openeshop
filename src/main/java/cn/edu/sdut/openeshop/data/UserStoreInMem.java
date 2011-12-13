@@ -8,12 +8,12 @@ import java.util.Map;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 
-import cn.edu.sdut.openeshop.model.User;
+import cn.edu.sdut.openeshop.model.Member;
 
 @Named
 @ApplicationScoped
 public class UserStoreInMem implements UserStoreInf{
-	private Map<String,User> userMap = new HashMap<String,User>(0);
+	private Map<String,Member> userMap = new HashMap<String,Member>(0);
 
 	@Override
 	public boolean userExists(String username) {
@@ -22,19 +22,19 @@ public class UserStoreInMem implements UserStoreInf{
 	}
 
 	@Override
-	public void addUser(User user) {
+	public void addUser(Member user) {
 		userMap.put(user.getUsername(), user);
 	}
 
 	@Override
-	public List<User> getAllUsers() {
-		List<User> list = new ArrayList<User>(0);
+	public List<Member> getAllUsers() {
+		List<Member> list = new ArrayList<Member>(0);
 	    list.addAll(userMap.values());
 		return list;
 	}
 
 	@Override
-	public User findUser(String username) {
+	public Member findUser(String username) {
 		return userMap.get(username);
 	}
 }
