@@ -13,8 +13,6 @@
 	    <h:inputText value="#{currentUser.email}" id="email"/>
 	    <h:outputLabel for="password">密码：</h:outputLabel>
 	    <h:inputSecret value="#{currentUser.password}" id="password"/>
-	    <h:outputLabel for="rePassword">再输一遍：</h:outputLabel>
-	    <h:inputSecret value="#{currentUser.rePassword}" id="rePassword"/>
 	</h:panelGrid>
 	<h:commandButton value="保存" action="#{userHelper.saveProfile}"/>
 </h:form>

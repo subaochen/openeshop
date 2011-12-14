@@ -40,7 +40,7 @@ public class Identity {
 		if (credentials.getUsername() == null
 				|| credentials.getUsername().isEmpty() || credentials.getPassword() == null
 				|| credentials.getPassword().isEmpty()
-				|| um.userExists(credentials.getUsername())){
+				|| !um.userExists(credentials.getUsername())){
 			System.out.println("can not login in,credentials = " + credentials);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("登录失败，用户名或者密码错误"));
 			return "/login.jsf";
