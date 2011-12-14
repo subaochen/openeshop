@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.ejb.Stateful;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Produces;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -33,9 +35,13 @@ public class UserManagerBean implements UserManager {
 	}
 
 	/**
-	 * 
+	 * 获得所有用户
 	 * @return
+	 * 
+	 * TODO 如何防止被执行多遍？
 	 */
+	@Produces
+	@Named
 	public List<Member> getAllUsers() {
 		return em.createQuery("from Member m").getResultList();
 	}

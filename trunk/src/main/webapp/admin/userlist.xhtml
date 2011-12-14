@@ -5,7 +5,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	template="/WEB-INF/templates/backend/template.xhtml">
 <ui:define name="content">
-	<h:dataTable value="#{userStoreInMem.allUsers}" var="_user" border="1">
+	<h:dataTable value="#{allUsers}" var="_user" border="1">
 		<h:column>
 			<f:facet name="header">姓名</f:facet>
 			<h:outputText value="#{_user.username}" />
