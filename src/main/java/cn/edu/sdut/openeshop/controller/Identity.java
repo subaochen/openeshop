@@ -9,6 +9,7 @@ import javax.faces.view.facelets.FaceletContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import cn.edu.sdut.openeshop.data.UserManager;
 import cn.edu.sdut.openeshop.data.UserManagerInMem;
 import cn.edu.sdut.openeshop.model.Member;
 
@@ -18,7 +19,7 @@ public class Identity {
 	Credentials credentials;
 	
 	@Inject
-	UserManagerInMem userStoreInMem;
+	UserManager um;
 
 	@Produces
 	@Named
@@ -39,13 +40,13 @@ public class Identity {
 		if (credentials.getUsername() == null
 				|| credentials.getUsername().isEmpty() || credentials.getPassword() == null
 				|| credentials.getPassword().isEmpty()
-				|| !userStoreInMem.userExists(credentials.getUsername())){
-			System.out.println("can not login in");
+				|| um.userExists(credentials.getUsername())){
+			System.out.println("can not login in,credentials = " + credentials);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("登录失败，用户名或者密码错误"));
 			return "/login.jsf";
 		}
 
-		currentUser = userStoreInMem.findUser(credentials.getUsername());
+		currentUser = um.findUser(credentials.getUsername());
 		if (credentials.getPassword().equalsIgnoreCase(currentUser.getPassword())) {
 			System.out.println("user:" + currentUser.getUsername() + " logged in");
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("欢迎您，" + currentUser.getUsername()));
