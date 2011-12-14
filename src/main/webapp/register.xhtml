@@ -24,7 +24,7 @@
             required="true"
             requiredMessage="必须设置密码！"
             validatorMessage="密码长度至少3个字符！">
-            <f:validateLength minmum="3"/>
+            <f:validateLength minimum="3"/>
         </h:inputSecret>
         <h:message for="password" styleClass="error"/>
         <h:outputLabel for="rePassword">再输一遍：</h:outputLabel>
@@ -32,7 +32,7 @@
             required="true"
             requiredMessage="必须再输入一遍密码！"
             validatorMessage="密码长度至少3个字符！">
-            <f:validateLength minmum="3"/>
+            <f:validateLength minimum="3"/>
         </h:inputSecret>
         <h:message for="rePassword" styleClass="error"/>        
     </h:panelGrid>

@@ -12,7 +12,7 @@ import cn.edu.sdut.openeshop.model.Member;
 
 @Named
 @ApplicationScoped
-public class UserStoreInMem implements UserStoreInf{
+public class UserManagerInMem implements UserManagerInf{
 	private Map<String,Member> userMap = new HashMap<String,Member>(0);
 
 	@Override
