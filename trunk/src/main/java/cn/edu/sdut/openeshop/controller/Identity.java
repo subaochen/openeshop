@@ -9,7 +9,7 @@ import javax.faces.view.facelets.FaceletContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import cn.edu.sdut.openeshop.data.UserStoreInMem;
+import cn.edu.sdut.openeshop.data.UserManagerInMem;
 import cn.edu.sdut.openeshop.model.Member;
 
 @Model
@@ -18,7 +18,7 @@ public class Identity {
 	Credentials credentials;
 	
 	@Inject
-	UserStoreInMem userStoreInMem;
+	UserManagerInMem userStoreInMem;
 
 	@Produces
 	@Named

@@ -4,7 +4,7 @@ import java.util.List;
 
 import cn.edu.sdut.openeshop.model.Member;
 
-public interface UserStoreInf {
+public interface UserManagerInf {
 	/**
 	 * 根据用户名检查用户是否已经存在？
 	 * @param username

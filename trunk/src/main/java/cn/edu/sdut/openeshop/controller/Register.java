@@ -7,7 +7,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import cn.edu.sdut.openeshop.data.UserStoreInMem;
+import cn.edu.sdut.openeshop.data.UserManagerInMem;
 
 @Named
 @RequestScoped
@@ -15,7 +15,7 @@ import cn.edu.sdut.openeshop.data.UserStoreInMem;
 public class Register extends RegisterBase implements RegisterInf{
 
 	@Inject
-	private UserStoreInMem userStoreInMem;
+	private UserManagerInMem userStoreInMem;
 
 	public String register() {
 		if (getUser().getPassword() != null
