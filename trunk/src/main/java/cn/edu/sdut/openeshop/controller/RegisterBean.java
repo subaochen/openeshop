@@ -11,7 +11,7 @@ import cn.edu.sdut.openeshop.model.Member;
 
 @Named("register")
 @RequestScoped
-public class RegisterBean implements RegisterInf {
+public class RegisterBean implements Register {
 	private Member user = new Member();
 	private String rePassword;
 	
