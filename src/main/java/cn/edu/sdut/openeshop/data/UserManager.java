@@ -2,47 +2,35 @@ package cn.edu.sdut.openeshop.data;
 
 import java.util.List;
 
-import javax.ejb.Stateful;
-import javax.enterprise.context.RequestScoped;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.ejb.Local;
+import javax.inject.Named;
 
 import cn.edu.sdut.openeshop.model.Member;
 
-@RequestScoped
-@Stateful
-public class UserManager {
-	@PersistenceContext
-	private EntityManager em;
-	
-	public void addUser(Member user){
-		em.persist(user);
-	}
-	
+public interface UserManager {
 	/**
-	 * 用户username是否存在？
+	 * 根据用户名检查用户是否已经存在？
 	 * @param username
-	 * @return true，如果用户已经存在；false，如果用户不存在
+	 * @return true，如果用户已经存在了，否则false
 	 */
-	public boolean userExists(String username){
-		if(findUser(username) != null) return true;
-		else return false;
-	}
+	public boolean userExists(String username);
 	
 	/**
-	 * 
-	 * @return
+	 * 将用户user保存起来
+	 * @param user
 	 */
-	public List<Member> getAllUsers(){
-		return em.createQuery("from Member m").getResultList();
-	}
-
-
-	public Member findUser(String username) {
-		List<Member> list = em.createQuery("from Member m where m.username=:username").setParameter("username", username).getResultList();
-		if(list.isEmpty()) return null;
-		else return list.get(0);
-		
-	}
-
+	public void addUser(Member user);
+	
+	/**
+	 * 根据用户名查找用户
+	 * @param username 用户名
+	 * @return User对象
+	 */
+	public Member findUser(String username);
+	
+	/**
+	 * 列出所有的用户
+	 * @return 用户列表
+	 */
+	public List<Member> getAllUsers();
 }
