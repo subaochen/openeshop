@@ -5,13 +5,10 @@ import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.view.facelets.FaceletContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import cn.edu.sdut.openeshop.data.StoreInDb;
 import cn.edu.sdut.openeshop.data.UserManager;
-import cn.edu.sdut.openeshop.data.UserManagerInMem;
 import cn.edu.sdut.openeshop.model.Member;
 
 @Model
@@ -19,7 +16,7 @@ public class Identity {
 	@Inject
 	Credentials credentials;
 	
-	@Inject @StoreInDb
+	@Inject
 	UserManager um;
 
 	@Produces
