@@ -13,6 +13,7 @@ import cn.edu.sdut.openeshop.model.Member;
 
 @RequestScoped
 @Stateful
+@StoreInDb
 public class UserManagerBean implements UserManager {
 	@PersistenceContext
 	private EntityManager em;

@@ -12,7 +12,8 @@ import cn.edu.sdut.openeshop.model.Member;
 
 @Named
 @ApplicationScoped
-public class UserManagerInMem {
+@StoreInMem
+public class UserManagerInMem implements UserManager{
 	private Map<String,Member> userMap = new HashMap<String,Member>(0);
 
 	public boolean userExists(String username) {

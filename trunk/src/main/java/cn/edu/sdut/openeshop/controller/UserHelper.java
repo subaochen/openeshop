@@ -5,12 +5,13 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import cn.edu.sdut.openeshop.data.StoreInMem;
 import cn.edu.sdut.openeshop.data.UserManagerInMem;
 import cn.edu.sdut.openeshop.model.Member;
 
 @Named
 public class UserHelper {
-	@Inject
+	@Inject @StoreInMem
 	UserManagerInMem userStoreInMem;
 	
 	@Inject 
