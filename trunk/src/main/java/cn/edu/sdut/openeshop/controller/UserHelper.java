@@ -1,18 +1,15 @@
 package cn.edu.sdut.openeshop.controller;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import cn.edu.sdut.openeshop.data.StoreInMem;
-import cn.edu.sdut.openeshop.data.UserManagerInMem;
+import cn.edu.sdut.openeshop.data.UserManager;
 import cn.edu.sdut.openeshop.model.Member;
 
 @Named
 public class UserHelper {
-	@Inject @StoreInMem
-	UserManagerInMem userStoreInMem;
+	@Inject
+	UserManager um;
 	
 	@Inject 
 	@LoggedIn

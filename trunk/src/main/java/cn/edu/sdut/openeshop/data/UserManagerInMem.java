@@ -6,13 +6,14 @@ import java.util.List;
 import java.util.Map;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Alternative;
 import javax.inject.Named;
 
 import cn.edu.sdut.openeshop.model.Member;
 
 @Named
 @ApplicationScoped
-@StoreInMem
+@Alternative
 public class UserManagerInMem implements UserManager{
 	private Map<String,Member> userMap = new HashMap<String,Member>(0);
 

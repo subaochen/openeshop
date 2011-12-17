@@ -6,7 +6,6 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import cn.edu.sdut.openeshop.data.StoreInDb;
 import cn.edu.sdut.openeshop.data.UserManager;
 import cn.edu.sdut.openeshop.model.Member;
 
@@ -16,7 +15,7 @@ public class RegisterBean implements Register {
 	private Member user = new Member();
 	private String rePassword;
 	
-	@Inject @StoreInDb
+	@Inject
 	private UserManager um;
 
 	@Override
