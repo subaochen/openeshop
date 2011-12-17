@@ -24,6 +24,7 @@ public class UserManagerInMem implements UserManager{
 
 
 	public void addUser(Member user) {
+		System.out.println("add user:" + user);
 		userMap.put(user.getUsername(), user);
 	}
 
