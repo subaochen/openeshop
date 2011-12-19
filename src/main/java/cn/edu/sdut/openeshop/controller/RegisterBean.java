@@ -1,5 +1,6 @@
 package cn.edu.sdut.openeshop.controller;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -11,12 +12,14 @@ import cn.edu.sdut.openeshop.model.Member;
 
 @Named("register")
 @RequestScoped
-public class RegisterBean implements Register {
-	private Member user = new Member();
-	private String rePassword;
+public class RegisterBean extends RegisterBase implements Register {
 	
 	@Inject
 	private UserManager um;
+	
+	public RegisterBean(){
+		System.out.println("使用无参构造方法创建 RegisterBean, UserManager = " + um);
+	}
 
 	@Override
 	public String register() {
@@ -30,21 +33,10 @@ public class RegisterBean implements Register {
 
 		return "/login.jsf";
 	}
-
-	public String getRePassword() {
-		return rePassword;
+	
+	@PostConstruct
+	public void postConstruct(){
+		System.out.println("RegisterBean:调用PostConstruct,UserManager = " + um);
+		
 	}
-
-	public void setRePassword(String rePassword) {
-		this.rePassword = rePassword;
-	}
-
-	public Member getUser() {
-		return user;
-	}
-
-	public void setUser(Member user) {
-		this.user = user;
-	}
-
 }
