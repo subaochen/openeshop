@@ -39,4 +39,11 @@ public class UserManagerInMem implements UserManager{
 	public Member findUser(String username) {
 		return userMap.get(username);
 	}
+
+
+	@Override
+	public void updateUser(Member currentUser) {
+		// TODO Auto-generated method stub
+		
+	}
 }
