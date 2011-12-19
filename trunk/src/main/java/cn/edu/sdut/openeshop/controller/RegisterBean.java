@@ -14,11 +14,16 @@ import cn.edu.sdut.openeshop.model.Member;
 @RequestScoped
 public class RegisterBean extends RegisterBase implements Register {
 	
-	@Inject
 	private UserManager um;
 	
 	public RegisterBean(){
 		System.out.println("使用无参构造方法创建 RegisterBean, UserManager = " + um);
+	}
+	
+	@Inject 
+	public RegisterBean(UserManager um) {
+		this.um = um;
+		System.out.println("使用带参构造方法创建 RegisterBean, UserManager = " + um);
 	}
 
 	@Override
