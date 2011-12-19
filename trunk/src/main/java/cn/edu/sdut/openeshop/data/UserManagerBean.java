@@ -2,6 +2,7 @@ package cn.edu.sdut.openeshop.data;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.Stateful;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
@@ -16,6 +17,10 @@ import cn.edu.sdut.openeshop.model.Member;
 public class UserManagerBean implements UserManager {
 	@PersistenceContext
 	private EntityManager em;
+
+	public UserManagerBean() {
+		System.out.println("使用无参构造方法创建 UserManagerBean");
+	}
 
 	public void addUser(Member user) {
 		em.persist(user);
@@ -36,9 +41,10 @@ public class UserManagerBean implements UserManager {
 
 	/**
 	 * 获得所有用户
+	 * 
 	 * @return
 	 * 
-	 * TODO 如何防止被执行多遍？
+	 *         TODO 如何防止被执行多遍？
 	 */
 	@Produces
 	@Named
@@ -56,5 +62,16 @@ public class UserManagerBean implements UserManager {
 			return list.get(0);
 
 	}
+
+	@Override
+	public String toString() {
+		return "UserManagerBean [em=" + em + "]";
+	}
+	
+	@PostConstruct
+	public void postConstruct(){
+		System.out.println("UserManagerBean:调用PostConstruct, em = " + em);
+	}
+
 
 }

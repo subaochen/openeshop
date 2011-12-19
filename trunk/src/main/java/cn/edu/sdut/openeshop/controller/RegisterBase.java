@@ -6,6 +6,10 @@ public class RegisterBase {
 	protected Member user = new Member();
 	protected String rePassword;
 	
+	public RegisterBase() {
+		System.out.println("使用无参构造方法创建 RegisterBase");
+	}
+	
 	public Member getUser() {
 		return user;
 	}
