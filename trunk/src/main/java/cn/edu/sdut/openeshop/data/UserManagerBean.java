@@ -73,5 +73,10 @@ public class UserManagerBean implements UserManager {
 		System.out.println("UserManagerBean:调用PostConstruct, em = " + em);
 	}
 
+	@Override
+	public void updateUser(Member currentUser) {
+		em.persist(em.merge(currentUser));
+	}
+
 
 }

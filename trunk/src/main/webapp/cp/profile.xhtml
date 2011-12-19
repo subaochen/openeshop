@@ -11,8 +11,12 @@
     <h:panelGrid columns="2">
         <h:outputLabel for="email">邮箱：</h:outputLabel>        
 	    <h:inputText value="#{currentUser.email}" id="email"/>
-	    <h:outputLabel for="password">密码：</h:outputLabel>
-	    <h:inputSecret value="#{currentUser.password}" id="password"/>
+        <h:outputLabel for="oldPassword">旧密码：</h:outputLabel>
+        <h:inputSecret value="#{userHelper.oldPassword}" id="oldPassword"/>	    
+	    <h:outputLabel for="password">新密码：</h:outputLabel>
+	    <h:inputSecret value="#{userHelper.newPassword}" id="password"/>
+        <h:outputLabel for="rePassword">再输一遍：</h:outputLabel>
+        <h:inputSecret value="#{userHelper.rePassword}" id="rePassword"/>
 	</h:panelGrid>
 	<h:commandButton value="保存" action="#{userHelper.saveProfile}"/>
 </h:form>

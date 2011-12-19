@@ -33,4 +33,6 @@ public interface UserManager {
 	 * @return 用户列表
 	 */
 	public List<Member> getAllUsers();
+
+	public void updateUser(Member currentUser);
 }
