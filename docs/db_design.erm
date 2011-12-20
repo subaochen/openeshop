@@ -110,7 +110,7 @@
 			</connections>
 			<display>false</display>
 			<creation_date>2011-12-12 23:32:15</creation_date>
-			<updated_date>2011-12-12 23:49:56</updated_date>
+			<updated_date>2011-12-19 22:21:27</updated_date>
 			<model_property>
 				<name>Project Name</name>
 				<value></value>
@@ -168,7 +168,7 @@
 			<description></description>
 			<logical_name>id</logical_name>
 			<physical_name>id</physical_name>
-			<type>serial</type>
+			<type>bigserial</type>
 		</word>
 		<word>
 			<id>2</id>
@@ -215,8 +215,8 @@
 			</color>
 			<connections>
 			</connections>
-			<physical_name>USER</physical_name>
-			<logical_name>USER</logical_name>
+			<physical_name>MEMBER</physical_name>
+			<logical_name>MEMBER</logical_name>
 			<description>用户表</description>
 			<constraint></constraint>
 			<primary_key_name></primary_key_name>
@@ -229,7 +229,7 @@
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
 					<physical_name></physical_name>
-					<type>serial</type>
+					<type>bigserial</type>
 					<constraint></constraint>
 					<default_value></default_value>
 					<auto_increment>false</auto_increment>

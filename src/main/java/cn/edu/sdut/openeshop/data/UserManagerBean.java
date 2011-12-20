@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Named;
@@ -12,8 +13,7 @@ import javax.persistence.PersistenceContext;
 
 import cn.edu.sdut.openeshop.model.Member;
 
-@RequestScoped
-@Stateful
+@Stateless
 public class UserManagerBean implements UserManager {
 	@PersistenceContext
 	private EntityManager em;
@@ -74,8 +74,8 @@ public class UserManagerBean implements UserManager {
 	}
 
 	@Override
-	public void updateUser(Member currentUser) {
-		em.persist(em.merge(currentUser));
+	public void updateUser(Member user) {
+		em.merge(user);
 	}
 
 
