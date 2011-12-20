@@ -32,8 +32,8 @@ public class Member implements Serializable {
 	}
 
 	@Id
-	@SequenceGenerator(name = "user_seq", sequenceName = "user_id_seq", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
+	@SequenceGenerator(name = "member_seq", sequenceName = "member_id_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_seq")
 	public Long getId() {
 		return id;
 	}
@@ -71,7 +71,9 @@ public class Member implements Serializable {
 
 	@Override
 	public String toString() {
-		return "User [username=" + username + ", password=" + password
-				+ ", email=" + email + "]";
+		return "Member [id=" + id + ", username=" + username + ", password="
+				+ password + ", email=" + email + "]";
 	}
+
+
 }

@@ -38,8 +38,10 @@ public class UserHelper {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage("两次密码输入不一致，无法保存用户个人资料"));
 		} else {
-			currentUser.setPassword(newPassword);
-			um.updateUser(currentUser);
+			Member user = um.findUser(currentUser.getUsername());
+			user.setPassword(newPassword);
+			user.setEmail(currentUser.getEmail());
+			um.updateUser(user);
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage("成功保存用户个人资料"));
 		}
