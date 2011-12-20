@@ -30,11 +30,17 @@
         <h:column>
             <f:facet name="header">操作</f:facet>
             <h:outputLink value="/admin/goods_edit.jsf">
-                <f:param name="goodsId" value="#{goodsManager.id}"/>
+                <f:param name="goodsId" value="#{goodsManager.instance.id}"/>
                 <h:outputText value="编辑"/>
             </h:outputLink>
         </h:column>
 
 	</h:dataTable>
+	
+	<div class="actionButtons">
+	    <h:form>
+	        <h:commandButton action="/admin/goods_edit.jsf" value="新建商品"/>
+	    </h:form>
+	</div>
 </ui:define>
 </ui:composition>

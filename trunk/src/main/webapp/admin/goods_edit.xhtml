@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/WEB-INF/templates/backend/template.xhtml">
+<ui:define name="content">
+    <h1 class="title">编辑/添加商品</h1>
+
+<h:form>
+    <h:panelGrid columns="2">
+        <h:outputLabel for="name">名称</h:outputLabel>
+        <h:inputText value="#{goodsManager.instance.name}" id="name"/>
+        <h:outputLabel for="code">编码</h:outputLabel>
+        <h:inputText value="#{goodsManager.instance.code}" id="code"/>
+        <h:outputLabel for="desc">描述</h:outputLabel>
+        <h:inputTextarea value="#{goodsManager.instance.description}" cols="30" rows="5" id="desc"/>
+        <h:outputLabel for="store">库存</h:outputLabel>
+        <h:inputText value="#{goodsManager.instance.store}" id="store">
+            <f:convertNumber pattern="###"/>
+        </h:inputText>    
+    </h:panelGrid>
+    
+    <div class="actionButtons">
+        <h:commandButton action="#{goodsManager.persist}" value="添加" rendered="#{!goodsManager.managed}"/>
+        <h:commandButton action="#{goodsManager.update}" value="更新" rendered="#{goodsManager.managed}"/>
+    </div>
+    
+</h:form>
+	
+</ui:define>
+</ui:composition>
