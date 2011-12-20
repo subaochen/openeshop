@@ -44,8 +44,9 @@ public class Identity {
 			return "/login.jsf";
 		}
 
-		currentUser = um.findUser(credentials.getUsername());
-		if (credentials.getPassword().equalsIgnoreCase(currentUser.getPassword())) {
+		Member user = um.findUser(credentials.getUsername());
+		if (credentials.getPassword().equalsIgnoreCase(user.getPassword())) {
+			currentUser = user;
 			System.out.println("user:" + currentUser.getUsername() + " logged in");
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("欢迎您，" + currentUser.getUsername()));
 			return "/cp/profile.jsf";

@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/WEB-INF/templates/backend/template.xhtml">
+<ui:define name="content">
+	<h:dataTable value="#{allGoods}" var="_goods" border="1">
+		<h:column>
+			<f:facet name="header">ID</f:facet>
+			<h:outputText value="#{_goods.id}" />
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">名称</f:facet>
+			<h:outputText value="#{_goods.name}" />
+		</h:column>
+
+        <h:column>
+            <f:facet name="header">编码</f:facet>
+            <h:outputText value="#{_goods.code}" />
+        </h:column>
+
+        <h:column>
+            <f:facet name="header">库存</f:facet>
+            <h:outputText value="#{_goods.store}" />
+        </h:column>
+
+	</h:dataTable>
+</ui:define>
+</ui:composition>
