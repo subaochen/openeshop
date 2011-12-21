@@ -29,8 +29,8 @@
         
         <h:column>
             <f:facet name="header">操作</f:facet>
-            <h:outputLink value="/admin/goods_edit.jsf">
-                <f:param name="goodsId" value="#{goodsManager.instance.id}"/>
+            <h:outputLink value="#{request.contextPath}/admin/goods_edit.jsf">
+                <f:param name="goodsId" value="#{_goods.id}"/>
                 <h:outputText value="编辑"/>
             </h:outputLink>
         </h:column>
