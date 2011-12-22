@@ -91,3 +91,8 @@ span.invalid {
 	font-weight: bold;
 	color:red;
 }
+
+.search_bar {
+	float:right;
+	margin-right:0px;
+}
