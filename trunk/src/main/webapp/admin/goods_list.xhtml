@@ -6,6 +6,7 @@
 	template="/WEB-INF/templates/backend/template.xhtml">
 <ui:define name="content">
     <h1 class="title">商品列表</h1>
+    <h:form>
 	<h:dataTable value="#{allGoods}" var="_goods" border="1">
 		<h:column>
 			<f:facet name="header">ID</f:facet>
@@ -33,14 +34,16 @@
                 <f:param name="goodsId" value="#{_goods.id}"/>
                 <h:outputText value="编辑"/>
             </h:outputLink>
+            #{' '}
+            <h:commandLink action="#{goodsManager.remove(_goods.id)}" value="删除"/>
         </h:column>
 
 	</h:dataTable>
 	
 	<div class="actionButtons">
-	    <h:form>
-	        <h:button outcome="/admin/goods_edit.jsf" value="新建商品"/>
-	    </h:form>
+	    <h:button outcome="/admin/goods_edit.jsf" value="新建商品"/>
 	</div>
+	</h:form>
+	
 </ui:define>
 </ui:composition>
