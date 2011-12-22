@@ -2,15 +2,18 @@ package cn.edu.sdut.openeshop.data;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
+import javax.ejb.Stateful;
 import javax.ejb.Stateless;
+import javax.enterprise.context.Dependent;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import cn.edu.sdut.openeshop.model.Goods;
-import cn.edu.sdut.openeshop.tools.HttpParam;
 
 @Stateless
 @Named
@@ -18,19 +21,18 @@ public class GoodsManager {
 	@PersistenceContext
 	private EntityManager em;
 	
-	private Goods instance;
+	private Goods instance = new Goods();
+	private Long goodsId;
 	
-	@HttpParam("goodsId") String goodsId;
 	
-	public GoodsManager(){
-		System.out.println("goodsId=" + goodsId);
-		if(instance == null) instance = new Goods();
-		Long id = instance.getId();
-		if(id != null && id != 0) instance = loadInstance(id);
+	public void wire(){
+		System.out.println("call goodsManager wire,goodsId="+goodsId);
+		if(getGoodsId() != null && getGoodsId() != 0) 
+			loadInstance(getGoodsId());
 	}
 	
-	private Goods loadInstance(Long id) {
-		return em.find(Goods.class, id);
+	private void loadInstance(Long id) {
+		instance = em.find(Goods.class, id);
 	}
 
 	@Produces @Named
@@ -38,12 +40,16 @@ public class GoodsManager {
 		return em.createQuery("from Goods goods").getResultList();
 	}
 	
-	public void persist(){
+	public String persist(){
 		em.persist(instance);
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("成功保存商品信息"));
+		return "/admin/goods_list.jsf";
 	}
 	
-	public void update(){
+	public String update(){
 		em.merge(instance);
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("成功更新商品信息"));
+		return "/admin/goods_list.jsf";
 	}
 
 	public Goods getInstance() {
@@ -55,11 +61,14 @@ public class GoodsManager {
 	}
 	
 	public boolean isManaged(){
-		return instance != null & instance.getId() != null && instance.getId() != 0;
+		return instance != null && instance.getId() != null && instance.getId() != 0;
 	}
-	
-	@PostConstruct
-	public void postConstruct(){
-		System.out.println("goods id =" + goodsId);
+
+	public Long getGoodsId() {
+		return goodsId;
+	}
+
+	public void setGoodsId(Long goodsId) {
+		this.goodsId = goodsId;
 	}
 }
