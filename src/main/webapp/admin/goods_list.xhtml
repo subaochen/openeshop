@@ -7,7 +7,7 @@
 <ui:define name="content">
     <h1 class="title">商品列表</h1>
     <h:form>
-	<h:dataTable value="#{allGoods}" var="_goods" border="1">
+	<h:dataTable value="#{allGoods}" var="_goods" border="1" cellspacing="0">
 		<h:column>
 			<f:facet name="header">ID</f:facet>
 			<h:outputText value="#{_goods.id}" />
