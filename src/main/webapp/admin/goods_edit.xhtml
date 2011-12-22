@@ -26,9 +26,10 @@
         </h:inputText>    
     </h:panelGrid>
     
+    <h:inputHidden value="#{goodsManager.instance.id}"/>
+    
     <div class="actionButtons">
-        <h:commandButton action="#{goodsManager.persist}" value="添加" rendered="#{!goodsManager.managed}"/>
-        <h:commandButton action="#{goodsManager.update}" value="更新" rendered="#{goodsManager.managed}"/>
+        <h:commandButton action="#{goodsManager.save}" value="#{goodsManager.instance.id == null ? '添加' : '更新'}"/>
     </div>
     
 </h:form>
