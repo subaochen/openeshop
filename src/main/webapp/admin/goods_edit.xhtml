@@ -6,6 +6,11 @@
 	template="/WEB-INF/templates/backend/template.xhtml">
 <ui:define name="content">
     <h1 class="title">编辑/添加商品</h1>
+    
+    <f:metadata>
+        <f:viewParam name="goodsId" value="#{goodsManager.goodsId}"/>
+        <f:event type="preRenderView" listener="#{goodsManager.wire}"/>
+    </f:metadata>
 
 <h:form>
     <h:panelGrid columns="2">
@@ -16,7 +21,7 @@
         <h:outputLabel for="desc">描述</h:outputLabel>
         <h:inputTextarea value="#{goodsManager.instance.description}" cols="30" rows="5" id="desc"/>
         <h:outputLabel for="store">库存</h:outputLabel>
-        <h:inputText value="#{goodsManager.instance.store}" id="store">
+        <h:inputText value="#{goodsManager.instance.store}" size="5" id="store">
             <f:convertNumber pattern="###"/>
         </h:inputText>    
     </h:panelGrid>
