@@ -61,7 +61,7 @@ public class GoodsManager {
 	 * @return
 	 */
 	public String search() {
-		return "/admin/goods_list.jsf";
+		return null;
 	}
 
 	public String save() {
