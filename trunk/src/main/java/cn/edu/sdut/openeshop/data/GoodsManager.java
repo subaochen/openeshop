@@ -6,15 +6,19 @@ import java.util.logging.Logger;
 
 import javax.ejb.Stateful;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.inject.Produces;
+import javax.enterprise.event.Event;
+import javax.enterprise.inject.Any;
+import javax.enterprise.util.AnnotationLiteral;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
+import cn.edu.sdut.openeshop.controller.Deleted;
+import cn.edu.sdut.openeshop.controller.Updated;
 import cn.edu.sdut.openeshop.model.Goods;
 
 @Stateful
@@ -26,6 +30,8 @@ public class GoodsManager {
 
 	@Inject
 	Logger log;
+	
+	@Inject @Any Event<Goods> goodsEvent;
 
 	private List<Goods> resultList = new ArrayList<Goods>(0);
 
@@ -68,13 +74,16 @@ public class GoodsManager {
 		em.merge(instance);
 		FacesContext.getCurrentInstance().addMessage(null,
 				new FacesMessage("成功保存商品信息"));
+		goodsEvent.select(new AnnotationLiteral<Updated>(){}).fire(instance);
 		return "/admin/goods_list.jsf";
 	}
 
 	public String remove(Long id) {
-		em.remove(findGoods(id));
+		Goods goods = findGoods(id);
+		em.remove(goods);
 		FacesContext.getCurrentInstance().addMessage(null,
 				new FacesMessage("成功删除商品信息"));
+		goodsEvent.select(new AnnotationLiteral<Deleted>(){}).fire(goods);
 		return "/admin/goods_list.jsf";
 	}
 
