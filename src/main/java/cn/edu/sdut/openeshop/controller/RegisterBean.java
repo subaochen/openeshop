@@ -2,6 +2,7 @@ package cn.edu.sdut.openeshop.controller;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.event.Event;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -16,6 +17,8 @@ public class RegisterBean extends RegisterBase implements Register {
 	
 	private UserManager um;
 	
+	@Inject @Registered Event<Member> registeredEvent;
+	
 	public RegisterBean(){
 		System.out.println("使用无参构造方法创建 RegisterBean, UserManager = " + getUm());
 	}
@@ -29,6 +32,7 @@ public class RegisterBean extends RegisterBase implements Register {
 		
 		getUm().addUser(user);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("用户注册成功！"));
+		registeredEvent.fire(user);
 
 		return "/login.jsf";
 	}
