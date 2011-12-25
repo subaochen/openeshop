@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/WEB-INF/templates/backend/template.xhtml">
+<ui:define name="content">
+    <h1 class="title">产品列表</h1>
+    <h:form>
+    <div class="search_bar">
+        <h:inputText value="#{productManager.searchFor}"/>
+        <h:commandButton action="#{productManager.search}" value="搜索"/>
+    </div>
+    <br style="clear:both"/>
+	<h:dataTable value="#{productManager.resultList}" var="_product" border="1" cellspacing="0" width="100%">
+		<h:column>
+			<f:facet name="header">ID</f:facet>
+			<h:outputText value="#{_product.id}" />
+		</h:column>
+
+        <h:column>
+            <f:facet name="header">商品</f:facet>
+            <h:outputText value="#{_product.goods.name}" />
+        </h:column>
+        
+		<h:column>
+			<f:facet name="header">名称</f:facet>
+			<h:outputText value="#{_product.name}" />
+		</h:column>
+
+        <h:column>
+            <f:facet name="header">编码</f:facet>
+            <h:outputText value="#{_product.code}" />
+        </h:column>
+        
+        <h:column>
+            <f:facet name="header">价格</f:facet>
+            <h:outputText value="#{_product.price}" />
+        </h:column>        
+
+        <h:column>
+            <f:facet name="header">库存</f:facet>
+            <h:outputText value="#{_product.store}" />
+        </h:column>
+        
+        <h:column>
+            <f:facet name="header">操作</f:facet>
+            <h:outputLink value="#{request.contextPath}/admin/product_edit.jsf">
+                <f:param name="productId" value="#{_product.id}"/>
+                <h:outputText value="编辑"/>
+            </h:outputLink>
+            #{' '}
+            <h:commandLink action="#{productManager.remove(_product.id)}" value="删除"/>
+        </h:column>
+
+	</h:dataTable>
+	
+	<div class="actionButtons">
+	    <h:button outcome="/admin/product_edit.jsf" value="新建产品"/>
+	</div>
+	</h:form>
+	
+</ui:define>
+</ui:composition>
