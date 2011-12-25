@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/WEB-INF/templates/backend/template.xhtml">
+<ui:define name="content">
+    <h1 class="title">编辑/添加产品</h1>
+    
+    <f:metadata>
+        <f:viewParam name="productId" value="#{productManager.productId}"/>
+        <f:event type="preRenderView" listener="#{productManager.wire}"/>
+    </f:metadata>
+
+<h:form>
+    <h:panelGrid columns="2">
+        <h:outputLabel for="goods">所属商品</h:outputLabel>
+        <h:selectOneMenu value="#{productManager.instance.goods}" converter="goodsConverter">
+            <f:selectItems
+                itemLabel="#{_goods.name}" 
+                itemValue="#{_goods}"
+                value="#{goodsManager.resultList}"
+                var="_goods"/>
+        </h:selectOneMenu>        
+        <h:outputLabel for="name">名称</h:outputLabel>
+        <h:inputText value="#{productManager.instance.name}" id="name"/>
+        <h:outputLabel for="code">编码</h:outputLabel>
+        <h:inputText value="#{productManager.instance.code}" id="code"/>
+        <h:outputLabel for="price">价格</h:outputLabel>
+        <h:inputText value="#{productManager.instance.price}" id="price"/>        
+        <h:outputLabel for="desc">描述</h:outputLabel>
+        <h:inputTextarea value="#{productManager.instance.description}" cols="30" rows="5" id="desc"/>
+        <h:outputLabel for="store">库存</h:outputLabel>
+        <h:inputText value="#{productManager.instance.store}" size="5" id="store">
+            <f:convertNumber pattern="###"/>
+        </h:inputText>    
+    </h:panelGrid>
+    
+    <h:inputHidden value="#{productManager.instance.id}"/>
+    
+    <div class="actionButtons">
+        <h:commandButton action="#{productManager.save}" value="#{productManager.instance.id == null ? '添加' : '更新'}"/>
+    </div>
+    
+</h:form>
+	
+</ui:define>
+</ui:composition>
