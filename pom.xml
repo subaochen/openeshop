@@ -23,7 +23,20 @@
         <jboss.domain>default</jboss.domain>
         <arquillian.version>1.0.0.Alpha5</arquillian.version>
         <jboss-javaee6-spec.version>1.0.0.Final</jboss-javaee6-spec.version>
+        <org.richfaces.bom.version>4.1.0.Final</org.richfaces.bom.version>
     </properties>
+    
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.richfaces</groupId>
+                <artifactId>richfaces-bom</artifactId>
+                <version>${org.richfaces.bom.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>    
 
     <repositories>
         <!-- The JBoss Community public repository is a composite repository of several major repositories -->
@@ -126,6 +139,15 @@
             <version>${arquillian.version}</version>
             <scope>test</scope>
         </dependency>
+        
+	    <dependency>
+	        <groupId>org.richfaces.ui</groupId>
+	        <artifactId>richfaces-components-ui</artifactId>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.richfaces.core</groupId>
+	        <artifactId>richfaces-core-impl</artifactId>
+	    </dependency>        
     </dependencies>
 
     <build>

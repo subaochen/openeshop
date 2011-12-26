@@ -3,9 +3,21 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a="http://richfaces.org/a4j"
 	template="/WEB-INF/templates/backend/template.xhtml">
 <ui:define name="content">
     <h1 class="title">编辑/添加商品</h1>
+    <h:outputStylesheet>
+        .top {
+        vertical-align: top;
+        }
+ 
+        .info {
+        height: 202px;
+        overflow: auto;
+        }
+    </h:outputStylesheet>    
     
     <f:metadata>
         <f:viewParam name="goodsId" value="#{goodsManager.goodsId}"/>
@@ -24,6 +36,40 @@
         <h:inputText value="#{goodsManager.instance.store}" size="5" id="store">
             <f:convertNumber pattern="###"/>
         </h:inputText>    
+    </h:panelGrid>
+    
+    <h:panelGrid columns="2" columnClasses="top,top">
+        <rich:fileUpload fileUploadListener="#{fileUpload.listener}"
+                maxFilesQuantity="5"
+                id="upload"
+                immediateUpload="false"
+                acceptedTypes="jpg,png,gif"
+                ontyperejected="alert('只允许上传JPG, GIF,PNG图片');" 
+                allowFlash="true" addControlLabel="添加" uploadControlLabel="上传" 
+                clearAllControlLabel="清除所有" clearControlLabel="清除"
+                cancelEntryControlLabel="取消"  stopControlLabel="停止" stopEntryControlLabel="停止" >
+                <a:ajax event="uploadcomplete" reRender="info" />
+        </rich:fileUpload>
+        
+        <h:panelGroup id="info">
+            <rich:panel bodyClass="info">
+                <f:facet name="header"><h:outputText value="图片信息" /></f:facet>
+                <h:outputText value="还没有上传文件"  rendered="#{fileUpload.size==0}" />
+                <rich:dataTable id="imageList"
+                    var="_file"
+                    value="#{fileUpload.files}"
+                    rendered="#{not empty fileUpload.files}">
+                    <h:column>
+                        <f:facet name="header"><h:outputText value="图片" /></f:facet>
+                        <rich:panel bodyClass="rich-laguna-panel-no-header">
+                            <h:panelGrid columns="1">
+                                <img src="#{_file.name}" width="80" height="80"/>                    
+                            </h:panelGrid>
+                        </rich:panel>             
+                    </h:column>                    
+                    </rich:dataTable>
+                </rich:panel>
+        </h:panelGroup>       
     </h:panelGrid>
     
     <h:inputHidden value="#{goodsManager.instance.id}"/>
