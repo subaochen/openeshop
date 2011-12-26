@@ -27,6 +27,7 @@ public class Goods implements Serializable {
 	private String description;
 	private int store;
 	private Set<Product> products = new HashSet<Product>(0);
+	private Set<GoodsImg> goodsImgs = new HashSet<GoodsImg>(0);
 
 	@Id
 	@SequenceGenerator(name = "goods_seq", sequenceName = "goods_id_seq", allocationSize = 1)
@@ -85,6 +86,16 @@ public class Goods implements Serializable {
 	public String toString() {
 		return "Goods [id=" + id + ", name=" + name + ", code=" + code
 				+ ", description=" + description + ", store=" + store + "]";
+	}
+
+	@OneToMany(cascade={CascadeType.ALL},fetch = FetchType.LAZY, mappedBy = "goods")
+	@OrderBy("id ASC")
+	public Set<GoodsImg> getGoodsImgs() {
+		return goodsImgs;
+	}
+
+	public void setGoodsImgs(Set<GoodsImg> goodsImgs) {
+		this.goodsImgs = goodsImgs;
 	}
 	
 	
