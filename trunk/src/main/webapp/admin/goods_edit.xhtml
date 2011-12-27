@@ -39,7 +39,7 @@
     </h:panelGrid>
     
     <h:panelGrid columns="2" columnClasses="top,top">
-        <rich:fileUpload fileUploadListener="#{fileUpload.listener}"
+        <rich:fileUpload fileUploadListener="#{imageUpload.listener}"
                 maxFilesQuantity="5"
                 id="upload"
                 immediateUpload="false"
@@ -54,16 +54,16 @@
         <h:panelGroup id="info">
             <rich:panel bodyClass="info">
                 <f:facet name="header"><h:outputText value="图片信息" /></f:facet>
-                <h:outputText value="还没有上传文件"  rendered="#{fileUpload.size==0}" />
+                <h:outputText value="还没有上传文件"  rendered="#{imageUpload.size==0}" />
                 <rich:dataTable id="imageList"
                     var="_file"
                     value="#{fileUpload.files}"
-                    rendered="#{not empty fileUpload.files}">
+                    rendered="#{not empty imageUpload.files}">
                     <h:column>
                         <f:facet name="header"><h:outputText value="图片" /></f:facet>
                         <rich:panel bodyClass="rich-laguna-panel-no-header">
                             <h:panelGrid columns="1">
-                                <img src="#{_file.name}" width="80" height="80"/>                    
+                                <img src="/upload/#{_file}" width="80" height="80"/>                    
                             </h:panelGrid>
                         </rich:panel>             
                     </h:column>                    
@@ -71,11 +71,12 @@
                 </rich:panel>
         </h:panelGroup>       
     </h:panelGrid>
-    
-    <h:inputHidden value="#{goodsManager.instance.id}"/>
+
+    <ui:remove>h:inputHidden在这里不能正常工作</ui:remove>    
+    <input type="hidden" name="goodsId" value="#{goodsManager.instance.id}"/>
     
     <div class="actionButtons">
-        <h:commandButton action="#{goodsManager.save}" value="#{goodsManager.instance.id == null ? '添加' : '更新'}"/>
+        <h:commandButton action="#{goodsManager.save(goodsManager.instance.id)}" value="#{goodsManager.instance.id == null ? '添加' : '更新'}"/>
     </div>
     
 </h:form>

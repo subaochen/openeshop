@@ -1,7 +1,9 @@
 package cn.edu.sdut.openeshop.data;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.ejb.Stateful;
@@ -20,6 +22,8 @@ import javax.persistence.PersistenceContext;
 import cn.edu.sdut.openeshop.controller.Deleted;
 import cn.edu.sdut.openeshop.controller.Updated;
 import cn.edu.sdut.openeshop.model.Goods;
+import cn.edu.sdut.openeshop.model.GoodsImg;
+import cn.edu.sdut.openeshop.tools.ImageUpload;
 
 @Stateful
 @RequestScoped
@@ -30,6 +34,8 @@ public class GoodsManager {
 
 	@Inject
 	Logger log;
+	
+	@Inject ImageUpload imageUpload;
 	
 	@Inject @Any Event<Goods> goodsEvent;
 
@@ -71,6 +77,20 @@ public class GoodsManager {
 	}
 
 	public String save() {
+		Set<GoodsImg> imgs = new HashSet<GoodsImg>(0);
+		log.info("files:" + imageUpload.getFiles());
+		log.info("goods=" + instance);
+		if(imageUpload.getSize() > 0) {
+			for(String file:imageUpload.getFiles()){
+				GoodsImg img = new GoodsImg();
+				img.setGoods(instance);
+				img.setImageUrl(file);
+				imgs.add(img);
+				log.info("save good img:" + file);
+			}
+		}
+		
+		instance.setGoodsImgs(imgs);
 		em.merge(instance);
 		FacesContext.getCurrentInstance().addMessage(null,
 				new FacesMessage("成功保存商品信息"));
