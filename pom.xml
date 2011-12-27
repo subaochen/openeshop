@@ -147,7 +147,14 @@
 	    <dependency>
 	        <groupId>org.richfaces.core</groupId>
 	        <artifactId>richfaces-core-impl</artifactId>
-	    </dependency>        
+	    </dependency>     
+	    
+	    <!-- 目前只是用到了Md5部分 -->
+	    <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.4</version>
+        </dependency>
     </dependencies>
 
     <build>
