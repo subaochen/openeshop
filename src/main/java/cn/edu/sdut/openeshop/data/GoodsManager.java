@@ -7,6 +7,8 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.ejb.Stateful;
+import javax.enterprise.context.Conversation;
+import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Event;
 import javax.enterprise.inject.Any;
@@ -19,6 +21,9 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.jboss.seam.faces.context.conversation.Begin;
+import org.jboss.seam.faces.context.conversation.End;
+
 import cn.edu.sdut.openeshop.controller.Deleted;
 import cn.edu.sdut.openeshop.controller.Updated;
 import cn.edu.sdut.openeshop.model.Goods;
@@ -26,7 +31,7 @@ import cn.edu.sdut.openeshop.model.GoodsImg;
 import cn.edu.sdut.openeshop.tools.ImageUpload;
 
 @Stateful
-@RequestScoped
+@ConversationScoped
 @Named
 public class GoodsManager {
 	@PersistenceContext
@@ -39,6 +44,7 @@ public class GoodsManager {
 	
 	@Inject @Any Event<Goods> goodsEvent;
 
+	@Inject Conversation conversation;
 	private List<Goods> resultList = new ArrayList<Goods>(0);
 
 	private Goods instance = new Goods();
@@ -46,6 +52,7 @@ public class GoodsManager {
 	private String searchFor;
 
 	public void wire() {
+		
 		log.info("GoodsManager wire is called,goodsId=" + goodsId);
 		if (getGoodsId() != null && getGoodsId() != 0)
 			loadInstance(getGoodsId());
@@ -75,7 +82,13 @@ public class GoodsManager {
 	public String search() {
 		return null;
 	}
+	
+	@Begin
+	public void edit(){
+		conversation.setTimeout(10 * 60 * 1000); // 10 minutes
+	}
 
+	@End
 	public String save() {
 		Set<GoodsImg> imgs = new HashSet<GoodsImg>(0);
 		log.info("files:" + imageUpload.getFiles());
@@ -98,6 +111,7 @@ public class GoodsManager {
 		return "/admin/goods_list.jsf";
 	}
 
+	@End
 	public String remove(Long id) {
 		Goods goods = findGoods(id);
 		em.remove(goods);

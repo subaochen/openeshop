@@ -28,7 +28,7 @@ public class FileUpload implements Serializable{
  
     public void listener(FileUploadEvent event) throws Exception {
         UploadedFile item = event.getUploadedFile();
-        log.info("item=" + item);
+        log.info("item name=" + item.getName() + ",item size=" + item.getSize() + ",item type=" + item.getContentType());
         files.add(item);
     }
  
