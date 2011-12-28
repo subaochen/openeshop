@@ -218,6 +218,18 @@
                             </fileNames>
                         </configuration>
                     </plugin>
+
+                    <!--  支持explode方式部署，配合jrebel加快开发宿对 -->
+                    <!--  用法：mvn  package war:exploded -->
+			        <plugin>
+			            <groupId>org.apache.maven.plugins</groupId>
+			            <artifactId>maven-war-plugin</artifactId>
+			            <version>2.1.1</version>
+			            <configuration>
+			              <webappDirectory>${jboss.home}/server/default/deploy/${project.build.finalName}.war</webappDirectory>
+			            </configuration>
+			        </plugin>
+
                 </plugins>
             </build>
         </profile>
