@@ -10,7 +10,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Logger;
 
+import javax.enterprise.context.ConversationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -19,7 +22,7 @@ import org.richfaces.event.FileUploadEvent;
 import org.richfaces.model.UploadedFile;
 
 @Named
-@SessionScoped
+@ConversationScoped
 // TODO 这里使用SessionScoped不合适，应该使用ConversationScoped
 public class ImageUpload implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -67,7 +70,7 @@ public class ImageUpload implements Serializable {
 			out.close();
 		}
 		
-		getFiles().add(relName);
+		getFiles().add(dateDir + "/" + relName);
 	}
 
 	private String createNewName() {

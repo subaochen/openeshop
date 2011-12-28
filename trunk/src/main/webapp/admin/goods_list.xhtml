@@ -35,10 +35,9 @@
         
         <h:column>
             <f:facet name="header">操作</f:facet>
-            <h:outputLink value="#{request.contextPath}/admin/goods_edit.jsf">
+            <h:link outcome="/admin/goods_edit.jsf" value="编辑" >
                 <f:param name="goodsId" value="#{_goods.id}"/>
-                <h:outputText value="编辑"/>
-            </h:outputLink>
+            </h:link>
             #{' '}
             <h:commandLink action="#{goodsManager.remove(_goods.id)}" value="删除"/>
         </h:column>

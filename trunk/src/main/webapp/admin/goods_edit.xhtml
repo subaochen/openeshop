@@ -48,7 +48,7 @@
                 allowFlash="true" addControlLabel="添加" uploadControlLabel="上传" 
                 clearAllControlLabel="清除所有" clearControlLabel="清除"
                 cancelEntryControlLabel="取消"  stopControlLabel="停止" stopEntryControlLabel="停止" >
-                <a:ajax event="uploadcomplete" reRender="info" />
+                <a:ajax event="uploadcomplete" render="info" />
         </rich:fileUpload>
         
         <h:panelGroup id="info">
@@ -57,7 +57,7 @@
                 <h:outputText value="还没有上传文件"  rendered="#{imageUpload.size==0}" />
                 <rich:dataTable id="imageList"
                     var="_file"
-                    value="#{fileUpload.files}"
+                    value="#{imageUpload.files}"
                     rendered="#{not empty imageUpload.files}">
                     <h:column>
                         <f:facet name="header"><h:outputText value="图片" /></f:facet>
@@ -72,11 +72,12 @@
         </h:panelGroup>       
     </h:panelGrid>
 
-    <ui:remove>h:inputHidden在这里不能正常工作</ui:remove>    
+    <ui:remove>单独h:inputHidden在这里不能正常工作：无法传递goodsId参数。但是单独的hidden input也不行</ui:remove>    
     <input type="hidden" name="goodsId" value="#{goodsManager.instance.id}"/>
+    <h:inputHidden value="#{goodsManager.instance.id}"/>
     
     <div class="actionButtons">
-        <h:commandButton action="#{goodsManager.save(goodsManager.instance.id)}" value="#{goodsManager.instance.id == null ? '添加' : '更新'}"/>
+        <h:commandButton action="#{goodsManager.save}" value="#{goodsManager.instance.id == null ? '添加' : '更新'}"/>
     </div>
     
 </h:form>
