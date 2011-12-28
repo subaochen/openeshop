@@ -5,6 +5,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a="http://richfaces.org/a4j"
+	xmlns:s="http://jboss.org/seam/faces"
 	template="/WEB-INF/templates/backend/template.xhtml">
 <ui:define name="content">
     <h1 class="title">编辑/添加商品</h1>
@@ -21,7 +22,7 @@
     
     <f:metadata>
         <f:viewParam name="goodsId" value="#{goodsManager.goodsId}"/>
-        <f:event type="preRenderView" listener="#{goodsManager.wire}"/>
+        <s:viewAction action="#{goodsManager.wire}"/>
     </f:metadata>
 
 <h:form>

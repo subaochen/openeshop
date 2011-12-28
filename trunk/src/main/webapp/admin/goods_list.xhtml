@@ -37,7 +37,7 @@
             <f:facet name="header">操作</f:facet>
             <h:link outcome="/admin/goods_edit.jsf" value="编辑" >
                 <f:param name="goodsId" value="#{_goods.id}"/>
-            </h:link>
+            </h:link>            
             #{' '}
             <h:commandLink action="#{goodsManager.remove(_goods.id)}" value="删除"/>
         </h:column>

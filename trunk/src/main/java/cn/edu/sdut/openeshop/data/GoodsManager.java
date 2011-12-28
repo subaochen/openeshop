@@ -13,16 +13,12 @@ import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Event;
 import javax.enterprise.inject.Any;
 import javax.enterprise.util.AnnotationLiteral;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
-import org.jboss.seam.faces.context.conversation.Begin;
-import org.jboss.seam.faces.context.conversation.End;
 
 import cn.edu.sdut.openeshop.controller.Deleted;
 import cn.edu.sdut.openeshop.controller.Updated;
@@ -31,7 +27,7 @@ import cn.edu.sdut.openeshop.model.GoodsImg;
 import cn.edu.sdut.openeshop.tools.ImageUpload;
 
 @Stateful
-@ConversationScoped
+@RequestScoped
 @Named
 public class GoodsManager {
 	@PersistenceContext
@@ -51,9 +47,9 @@ public class GoodsManager {
 	private Long goodsId;
 	private String searchFor;
 
-	public void wire() {
-		
-		log.info("GoodsManager wire is called,goodsId=" + goodsId);
+	public void wire() {		
+		conversation.begin();
+		log.info("wiring,conversation id=" + conversation.getId());
 		if (getGoodsId() != null && getGoodsId() != 0)
 			loadInstance(getGoodsId());
 	}
@@ -63,7 +59,6 @@ public class GoodsManager {
 	}
 
 	public List<Goods> getResultList() {
-		log.info("searchFor=" + searchFor);
 		if (resultList.size() != 0)
 			return resultList;
 		if (searchFor != null)
@@ -83,13 +78,8 @@ public class GoodsManager {
 		return null;
 	}
 	
-	@Begin
-	public void edit(){
-		conversation.setTimeout(10 * 60 * 1000); // 10 minutes
-	}
-
-	@End
 	public String save() {
+		log.info("saving,conversation id=" +conversation.getId());		
 		Set<GoodsImg> imgs = new HashSet<GoodsImg>(0);
 		log.info("files:" + imageUpload.getFiles());
 		log.info("goods=" + instance);
@@ -103,15 +93,19 @@ public class GoodsManager {
 			}
 		}
 		
-		instance.setGoodsImgs(imgs);
+		instance.setGoodsImgs(imgs);	
 		em.merge(instance);
+		
 		FacesContext.getCurrentInstance().addMessage(null,
 				new FacesMessage("成功保存商品信息"));
+		
 		goodsEvent.select(new AnnotationLiteral<Updated>(){}).fire(instance);
+		
+		conversation.end();
 		return "/admin/goods_list.jsf";
 	}
 
-	@End
+	
 	public String remove(Long id) {
 		Goods goods = findGoods(id);
 		em.remove(goods);
