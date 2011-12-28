@@ -11,13 +11,12 @@ import java.util.Date;
 import java.util.logging.Logger;
 
 import javax.enterprise.context.ConversationScoped;
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
-import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.jboss.seam.faces.context.conversation.Begin;
+import org.jboss.seam.faces.context.conversation.End;
 import org.richfaces.event.FileUploadEvent;
 import org.richfaces.model.UploadedFile;
 
@@ -34,6 +33,8 @@ public class ImageUpload implements Serializable {
 	Logger log;
 	
 	// 相对路径名
+//	@Produces
+//	@ConversationScoped
 	private ArrayList<String> files = new ArrayList<String>();
 
 	public void listener(FileUploadEvent event) throws Exception {
