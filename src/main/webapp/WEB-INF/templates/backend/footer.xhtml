@@ -7,4 +7,6 @@
 
 
 <p style="text-align:center">Powered by openeshop</p>
+<p><h:outputText value="long-running conversation id: #{conversation.id}" rendered="#{conversation.transient==false}"/></p>
+<p><h:outputText value="transient conversation" rendered="#{conversation.transient==true}"/></p>
 </ui:composition>
