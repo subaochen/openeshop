@@ -3,9 +3,15 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:s="http://jboss.org/seam/faces"
 	template="/WEB-INF/templates/backend/template.xhtml">
 <ui:define name="content">
     <h1 class="title">商品列表</h1>
+    
+    <f:metadata>
+        <s:viewAction action="#{goodsManager.debug}"/>
+    </f:metadata>
+    
     <h:form>
     <div class="search_bar">
         <h:inputText value="#{goodsManager.searchFor}"/>
@@ -48,6 +54,6 @@
 	    <h:button outcome="/admin/goods_edit.jsf" value="新建商品"/>
 	</div>
 	</h:form>
-	
+
 </ui:define>
 </ui:composition>

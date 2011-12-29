@@ -50,8 +50,14 @@ public class GoodsManager {
 	public void wire() {		
 		conversation.begin();
 		log.info("wiring,conversation id=" + conversation.getId());
-		if (getGoodsId() != null && getGoodsId() != 0)
+		if (getGoodsId() != null && getGoodsId() != 0){
 			loadInstance(getGoodsId());
+			
+			// 设置impageUpload组件的files属性，以便在上传组件中显示出已经存在的图片
+			if(!instance.getGoodsImgs().isEmpty()){
+				imageUpload.setFiles(new ArrayList(instance.getGoodsImgs()));
+			}
+		}
 	}
 
 	private void loadInstance(Long id) {
@@ -81,15 +87,14 @@ public class GoodsManager {
 	public String save() {
 		log.info("saving,conversation id=" +conversation.getId());		
 		Set<GoodsImg> imgs = new HashSet<GoodsImg>(0);
-		log.info("files:" + imageUpload.getFiles());
+
 		log.info("goods=" + instance);
+		// 知识点：新旧图片一起保存的奥秘
 		if(imageUpload.getSize() > 0) {
-			for(String file:imageUpload.getFiles()){
-				GoodsImg img = new GoodsImg();
+			for(GoodsImg img:imageUpload.getFiles()){
 				img.setGoods(instance);
-				img.setImageUrl(file);
 				imgs.add(img);
-				log.info("save good img:" + file);
+				log.info("save goods img:" + img.getImageUrl());
 			}
 		}
 		
@@ -141,5 +146,11 @@ public class GoodsManager {
 
 	public void setSearchFor(String searchFor) {
 		this.searchFor = searchFor;
+	}
+	
+	public void debug(){
+		if(imageUpload != null && imageUpload.getSize() != 0)
+			for(GoodsImg img:imageUpload.getFiles())
+			    log.info("DEBUG:image uploaded file=" + img.getImageUrl());
 	}
 }
