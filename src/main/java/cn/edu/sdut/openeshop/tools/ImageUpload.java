@@ -20,6 +20,8 @@ import org.jboss.seam.faces.context.conversation.End;
 import org.richfaces.event.FileUploadEvent;
 import org.richfaces.model.UploadedFile;
 
+import cn.edu.sdut.openeshop.model.GoodsImg;
+
 @Named
 @ConversationScoped
 // TODO 这里使用SessionScoped不合适，应该使用ConversationScoped
@@ -32,10 +34,8 @@ public class ImageUpload implements Serializable {
 	@Inject
 	Logger log;
 	
-	// 相对路径名
-//	@Produces
-//	@ConversationScoped
-	private ArrayList<String> files = new ArrayList<String>();
+	// 商品的图片
+	private ArrayList<GoodsImg> files = new ArrayList<GoodsImg>();
 
 	public void listener(FileUploadEvent event) throws Exception {
 		UploadedFile item = event.getUploadedFile();
@@ -71,7 +71,7 @@ public class ImageUpload implements Serializable {
 			out.close();
 		}
 		
-		getFiles().add(dateDir + "/" + relName);
+		getFiles().add(new GoodsImg(dateDir + "/" + relName));
 	}
 
 	private String createNewName() {
@@ -96,11 +96,11 @@ public class ImageUpload implements Serializable {
 		return System.currentTimeMillis();
 	}
 
-	public ArrayList<String> getFiles() {
+	public ArrayList<GoodsImg> getFiles() {
 		return files;
 	}
 
-	public void setFiles(ArrayList<String> files) {
+	public void setFiles(ArrayList<GoodsImg> files) {
 		this.files = files;
 	}
 

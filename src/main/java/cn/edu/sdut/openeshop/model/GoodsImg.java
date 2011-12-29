@@ -21,6 +21,12 @@ public class GoodsImg implements Serializable {
 	private Long id;
 	private Goods goods;
 	private String imageUrl;
+	
+	public GoodsImg(){}
+	
+	public GoodsImg(String url){
+		this.imageUrl = url;
+	}
 
 	@Id
 	@SequenceGenerator(name = "goods_img_seq", sequenceName = "goods_img_id_seq", allocationSize = 1)
