@@ -40,9 +40,9 @@ public class SeedDataImporter {
         member1.setEmail("admin@example.com");
         
         Member member2 = new Member();
-        member2.setUsername("admin");
-        member2.setPassword("admin");
-        member2.setEmail("admin@example.com");
+        member2.setUsername("user");
+        member2.setPassword("user");
+        member2.setEmail("user@example.com");
         
         Goods goods1 = new Goods();
         goods1.setName("电脑");
