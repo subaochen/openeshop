@@ -15,8 +15,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.jboss.seam.faces.context.conversation.Begin;
-import org.jboss.seam.faces.context.conversation.End;
 import org.richfaces.event.FileUploadEvent;
 import org.richfaces.model.UploadedFile;
 
@@ -24,7 +22,6 @@ import cn.edu.sdut.openeshop.model.GoodsImg;
 
 @Named
 @ConversationScoped
-// TODO 这里使用SessionScoped不合适，应该使用ConversationScoped
 public class ImageUpload implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
