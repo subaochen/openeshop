@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "goods")
@@ -96,6 +97,17 @@ public class Goods implements Serializable {
 
 	public void setGoodsImgs(Set<GoodsImg> goodsImgs) {
 		this.goodsImgs = goodsImgs;
+	}
+	
+	@Transient
+	public String getGoodsMainImg(){
+		if(goodsImgs == null || goodsImgs.isEmpty()) return "";
+		
+		//TODO 取第一个图片作为产品的主图片
+		for(GoodsImg goodsImg:goodsImgs){
+			return goodsImg.getImageUrl();
+		}
+		return "";
 	}
 	
 	

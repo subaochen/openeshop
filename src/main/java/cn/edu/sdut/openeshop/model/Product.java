@@ -2,7 +2,10 @@ package cn.edu.sdut.openeshop.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,8 +14,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "product")
@@ -26,6 +32,7 @@ public class Product implements Serializable {
 	private int store;
 	private BigDecimal price;
 	private Goods goods;
+	private Set<ProductImg> productImgs = new HashSet<ProductImg>(0);
 
 	@Id
 	@SequenceGenerator(name = "product_seq", sequenceName = "product_id_seq", allocationSize = 1)
@@ -88,4 +95,35 @@ public class Product implements Serializable {
 	public void setGoods(Goods goods) {
 		this.goods = goods;
 	}
+
+	@OneToMany(cascade={CascadeType.ALL},fetch = FetchType.LAZY, mappedBy = "product")
+	@OrderBy("id ASC")
+	public Set<ProductImg> getProductImgs() {
+		return productImgs;
+	}
+
+	public void setProductImgs(Set<ProductImg> productImgs) {
+		this.productImgs = productImgs;
+	}
+	
+	@Transient
+	public String getMainImageUrl(){
+		if(productImgs == null || productImgs.isEmpty()) return "";
+		
+		//TODO 取第一个图片作为产品的主图片
+		for(ProductImg productImg:productImgs){
+			return productImg.getImageUrl();
+		}
+		return "";
+	}
+	
+
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", name=" + name + ", code=" + code
+				+ ", description=" + description + ", store=" + store
+				+ ", price=" + price + "]";
+	}
+	
+	
 }

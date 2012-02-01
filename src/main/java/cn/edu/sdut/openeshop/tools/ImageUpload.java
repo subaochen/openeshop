@@ -19,6 +19,7 @@ import org.richfaces.event.FileUploadEvent;
 import org.richfaces.model.UploadedFile;
 
 import cn.edu.sdut.openeshop.model.GoodsImg;
+import cn.edu.sdut.openeshop.model.ProductImg;
 
 @Named
 @ConversationScoped
@@ -27,12 +28,14 @@ public class ImageUpload implements Serializable {
 	
 	// TODO 暂时写死路径
 	private String baseLocation = "/opt/data/";
+	private String imageFor = "";
 
 	@Inject
 	Logger log;
 	
 	// 商品的图片
 	private ArrayList<GoodsImg> files = new ArrayList<GoodsImg>();
+	private ArrayList<ProductImg> productImages = new ArrayList<ProductImg>();
 
 	public void listener(FileUploadEvent event) throws Exception {
 		UploadedFile item = event.getUploadedFile();
@@ -68,7 +71,11 @@ public class ImageUpload implements Serializable {
 			out.close();
 		}
 		
-		getFiles().add(new GoodsImg(dateDir + "/" + relName));
+		log.info("====================imageFor=" + imageFor);
+		if(imageFor.equalsIgnoreCase("goods"))
+		    files.add(new GoodsImg(dateDir + "/" + relName));
+		else if(imageFor.equalsIgnoreCase("product"))
+			productImages.add(new ProductImg(dateDir + "/" + relName));
 	}
 
 	private String createNewName() {
@@ -82,11 +89,12 @@ public class ImageUpload implements Serializable {
 	}
 
 	public int getSize() {
-		if (getFiles().size() > 0) {
+		if (imageFor.equalsIgnoreCase("goods") && getFiles().size() > 0) {
 			return getFiles().size();
-		} else {
+		} else if(imageFor.equalsIgnoreCase("product") && getProductImages().size() > 0){
+			return getProductImages().size();
+		} else
 			return 0;
-		}
 	}
 
 	public long getTimeStamp() {
@@ -99,6 +107,24 @@ public class ImageUpload implements Serializable {
 
 	public void setFiles(ArrayList<GoodsImg> files) {
 		this.files = files;
+	}
+
+	public String getImageFor() {
+		return imageFor;
+	}
+
+	public void setImageFor(String imageFor) {
+		log.info("===================================setImageFor=" + imageFor);
+		this.imageFor = imageFor;
+	}
+
+	public ArrayList<ProductImg> getProductImages() {
+		log.info("--------------------------uploaded files:" + productImages);
+		return productImages;
+	}
+
+	public void setProductImages(ArrayList<ProductImg> productImages) {
+		this.productImages = productImages;
 	}
 
 }
