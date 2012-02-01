@@ -50,6 +50,8 @@
                 clearAllControlLabel="清除所有" clearControlLabel="清除"
                 cancelEntryControlLabel="取消"  stopControlLabel="停止" stopEntryControlLabel="停止" >
                 <a:ajax event="uploadcomplete" render="info" />
+                <a:param name="#{imageUpload.imageFor}" value="goods"/>
+                
         </rich:fileUpload>
         
         <h:panelGroup id="info">

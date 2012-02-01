@@ -1,10 +1,13 @@
 package cn.edu.sdut.openeshop.data;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.ejb.Stateful;
+import javax.enterprise.context.Conversation;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Event;
 import javax.enterprise.inject.Any;
@@ -18,7 +21,10 @@ import javax.persistence.PersistenceContext;
 
 import cn.edu.sdut.openeshop.controller.Deleted;
 import cn.edu.sdut.openeshop.controller.Updated;
+import cn.edu.sdut.openeshop.model.GoodsImg;
 import cn.edu.sdut.openeshop.model.Product;
+import cn.edu.sdut.openeshop.model.ProductImg;
+import cn.edu.sdut.openeshop.tools.ImageUpload;
 
 @Stateful
 @RequestScoped
@@ -30,7 +36,13 @@ public class ProductManager {
 	@Inject
 	Logger log;
 	
-	@Inject @Any Event<Product> productEvent;
+	@Inject ImageUpload imageUpload;
+	
+	@Inject Conversation conversation;
+
+	@Inject
+	@Any
+	Event<Product> productEvent;
 
 	private List<Product> resultList = new ArrayList<Product>(0);
 
@@ -38,10 +50,19 @@ public class ProductManager {
 	private Long productId;
 	private String searchFor;
 
+	// 如果该变量存在，则需要列出该商品下面的产品
+	private Long goodsId;
+
 	public void wire() {
-		log.info("productManager wire is called,productId=" + productId);
+		log.info("+++++++++++++++productManager wire is called,productId=" + productId);
+		conversation.begin();
 		if (getproductId() != null && getproductId() != 0)
 			loadInstance(getproductId());
+		
+		// 设置impageUpload组件的productImgs属性，以便在上传组件中显示出已经存在的图片
+		if(!instance.getProductImgs().isEmpty()){
+			imageUpload.setProductImages(new ArrayList(instance.getProductImgs()));
+		}
 	}
 
 	private void loadInstance(Long id) {
@@ -52,11 +73,19 @@ public class ProductManager {
 		log.info("searchFor=" + searchFor);
 		if (resultList.size() != 0)
 			return resultList;
+
 		if (searchFor != null)
 			return em
 					.createQuery(
 							"from Product product where lower(name) like lower(concat(concat('%',:name),'%'))")
 					.setParameter("name", searchFor).getResultList();
+
+		if (getGoodsId() != null && getGoodsId() != 0)
+			return em
+					.createQuery(
+							"from Product product where product.goods.id=:goodsId")
+					.setParameter("goodsId", getGoodsId()).getResultList();
+
 		return em.createQuery("from Product product").getResultList();
 	}
 
@@ -70,10 +99,26 @@ public class ProductManager {
 	}
 
 	public String save() {
+		Set<ProductImg> imgs = new HashSet<ProductImg>(0);
+
+		log.info("product=" + instance);
+		// 知识点：新旧图片一起保存的奥秘
+		if(imageUpload.getSize() > 0) {
+			for(ProductImg img:imageUpload.getProductImages()){
+				img.setProduct(instance);
+				imgs.add(img);
+				log.info("saving product img:" + img.getImageUrl());
+			}
+		}
+		
+		instance.setProductImgs(imgs);	
 		em.merge(instance);
 		FacesContext.getCurrentInstance().addMessage(null,
 				new FacesMessage("成功保存产品信息"));
-		productEvent.select(new AnnotationLiteral<Updated>(){}).fire(instance);
+		productEvent.select(new AnnotationLiteral<Updated>() {
+		}).fire(instance);
+		
+		conversation.end();
 		return "/admin/product_list.jsf";
 	}
 
@@ -82,7 +127,8 @@ public class ProductManager {
 		em.remove(product);
 		FacesContext.getCurrentInstance().addMessage(null,
 				new FacesMessage("成功删除产品信息"));
-		productEvent.select(new AnnotationLiteral<Deleted>(){}).fire(product);
+		productEvent.select(new AnnotationLiteral<Deleted>() {
+		}).fire(product);
 		return "/admin/product_list.jsf";
 	}
 
@@ -112,5 +158,13 @@ public class ProductManager {
 
 	public void setSearchFor(String searchFor) {
 		this.searchFor = searchFor;
+	}
+
+	public Long getGoodsId() {
+		return goodsId;
+	}
+
+	public void setGoodsId(Long goodsId) {
+		this.goodsId = goodsId;
 	}
 }

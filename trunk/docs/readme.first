@@ -1,0 +1,7 @@
+1 如何运行
+
+在$JBOSS_HOME/server/default/deploy建立一个符号链接upload.war指向/opt/data
+
+2 初始用户
+admin:admin
+user:user

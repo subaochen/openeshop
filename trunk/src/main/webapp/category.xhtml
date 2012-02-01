@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      template="/WEB-INF/templates/front/template.xhtml"> 
+<ui:define name="content"> 
+
+<f:metadata>
+    <f:viewParam name="goodsId" value="#{productManager.goodsId}"/>
+</f:metadata>
+    
+<h1 class="title">产品列表</h1>
+
+<div class="products">
+<h:form>
+<ul class="productList">
+<ui:repeat value="#{productManager.resultList}" var="_product">
+    <li>
+        <div class="productImage">
+            <img src="/upload/#{_product.mainImageUrl}" width="100" height="100"/>
+        </div>
+        <p class="productDesc">#{_product.name}</p>
+        <span class="price">价格：#{_product.price}</span>
+        
+        <div class="orderButton">
+            <h:commandButton action="#{orderManager.addToCart}" value="放入购物车"/>
+        </div>
+    </li>
+</ui:repeat>
+</ul>
+</h:form>
+</div>
+</ui:define>
+</ui:composition>
