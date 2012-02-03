@@ -3,6 +3,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a="http://richfaces.org/a4j"
       template="/WEB-INF/templates/front/template.xhtml"> 
 <ui:define name="content"> 
 
@@ -24,7 +25,7 @@
         <span class="price">价格：#{_product.price}</span>
         
         <div class="orderButton">
-            <h:commandButton action="#{orderManager.addToCart}" value="放入购物车"/>
+            <a:commandButton action="#{orderManager.addToCart(_product)}" value="放入购物车" reRender="cart"/>
         </div>
     </li>
 </ui:repeat>

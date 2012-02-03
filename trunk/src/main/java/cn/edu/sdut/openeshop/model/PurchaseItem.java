@@ -62,5 +62,7 @@ public class PurchaseItem implements Serializable {
 		this.product = product;
 	}
 
-	
+	public void addQuantity(int quantity){
+		num += quantity;
+	}
 }
