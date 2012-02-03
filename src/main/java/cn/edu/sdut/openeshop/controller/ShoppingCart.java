@@ -16,7 +16,7 @@ import cn.edu.sdut.openeshop.model.PurchaseItem;
  */
 public interface ShoppingCart {
 
-	public boolean isEmpty();
+	public boolean getIsEmpty();
 	public void addProduct(Product product, int num);
 	public List<PurchaseItem> getCart();
 	
