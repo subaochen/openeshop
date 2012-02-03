@@ -1,7 +1,10 @@
 package cn.edu.sdut.openeshop.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -30,7 +33,12 @@ public class Purchase implements Serializable {
 	private String shipStatus;
 	private String payStatus;
 	private Member member;
-	private Set<PurchaseItem> purchaseItems = new HashSet<PurchaseItem>(0);
+	private BigDecimal totalAmount;
+	private String shipNo;
+	private List<PurchaseItem> purchaseItems = new ArrayList<PurchaseItem>(0);
+	
+	public Purchase(){
+	}
 
 	@Id
 	@SequenceGenerator(name = "purchase_seq", sequenceName = "purchase_id_seq", allocationSize = 1)
@@ -99,13 +107,60 @@ public class Purchase implements Serializable {
 
 	@OneToMany(cascade={CascadeType.ALL},fetch = FetchType.LAZY, mappedBy = "purchase")
 	@OrderBy("id ASC")
-	public Set<PurchaseItem> getPurchaseItems() {
+	public List<PurchaseItem> getPurchaseItems() {
 		return purchaseItems;
 	}
 
-	public void setPurchaseItems(Set<PurchaseItem> purchaseItems) {
+	public void setPurchaseItems(List<PurchaseItem> purchaseItems) {
 		this.purchaseItems = purchaseItems;
 	}
+	
+	/**
+	 * 向订单中增加产品
+	 */
+	public void addProduct(Product product, int num){
+		for(PurchaseItem item:purchaseItems){
+			if(item.getProduct().getId() == product.getId()){
+				item.addQuantity(num);
+				return;
+			}
+		}
+		
+		PurchaseItem item = new PurchaseItem();
+		item.setProduct(product);
+		item.setNum(num);
+		item.setPurchase(this);
+		purchaseItems.add(item);
+		System.out.println("addProduct:" + product + ",num:" + num);
+	}
 
+	@Column(name="total_amount",precision=10,scale=2)
+	public BigDecimal getTotalAmount() {
+		return totalAmount;
+	}
+
+	public void setTotalAmount(BigDecimal totalAmount) {
+		this.totalAmount = totalAmount;
+	}
+
+	@Column(name="ship_no")
+	public String getShipNo() {
+		return shipNo;
+	}
+
+	public void setShipNo(String shipNo) {
+		this.shipNo = shipNo;
+	}
+
+	@Override
+	public String toString() {
+		return "Purchase [id=" + id + ", addrName=" + addrName + ", addrTel="
+				+ addrTel + ", addr=" + addr + ", shipStatus=" + shipStatus
+				+ ", payStatus=" + payStatus + ", member=" + member
+				+ ", totalAmount=" + totalAmount + ", shipNo=" + shipNo
+				+ ", purchaseItems size=" + purchaseItems.size() + "]";
+	}
+	
+	
 
 }
