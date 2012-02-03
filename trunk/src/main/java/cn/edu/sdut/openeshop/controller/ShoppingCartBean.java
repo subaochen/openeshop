@@ -33,7 +33,7 @@ public class ShoppingCartBean implements ShoppingCart {
 	Purchase order = new Purchase();
 
 	@Override
-	public boolean isEmpty() {
+	public boolean getIsEmpty() {
 		return order.getPurchaseItems().isEmpty();
 	}
 

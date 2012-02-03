@@ -4,14 +4,18 @@
 <ui:composition  xmlns="http://www.w3.org/1999/xhtml"
                  xmlns:ui="http://java.sun.com/jsf/facelets"
                  xmlns:h="http://java.sun.com/jsf/html"
+                 xmlns:f="http://java.sun.com/jsf/core"
+                 xmlns:rich="http://richfaces.org/rich"
                  xmlns:a="http://richfaces.org/a4j">
-
-<h1>购物车</h1>
-<a:region id="cart">
-<ul>
-    <ui:repeat value="#{cart.cart}" var="_item">
-    <li><h:outputLink value="#">#{_item.getProduct().getName()}</h:outputLink></li>
-    </ui:repeat>
-</ul>
-</a:region>
+<a:outputPanel id="cart">
+<rich:panel>
+    <f:facet name="header">购物车</f:facet>
+    <h:outputText value="购物车为空" rendered="#{cart.isEmpty}"/>
+    <ul>
+	    <ui:repeat value="#{cart.cart}" var="_item">
+	    <li><h:outputLink value="#">#{_item.product.name}</h:outputLink></li>
+	    </ui:repeat>
+    </ul>
+</rich:panel>
+</a:outputPanel>
 </ui:composition>
