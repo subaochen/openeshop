@@ -25,7 +25,7 @@
         <span class="price">价格：#{_product.price}</span>
         
         <div class="orderButton">
-            <a:commandButton action="#{orderManager.addToCart(_product)}" value="放入购物车" reRender="cart"/>
+            <a:commandButton action="#{orderManager.addToCart(_product)}" value="放入购物车" render="cart"/>
         </div>
     </li>
 </ui:repeat>
