@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a="http://richfaces.org/a4j"
+      template="/WEB-INF/templates/front/template.xhtml"> 
+<ui:define name="content"> 
+    
+<h1 class="title">结算</h1>
+
+<div class="products">
+<h:form>
+<rich:dataTable value="#{cart.cart}" var="_item" border="1" cellspacing="0">
+    <h:column>
+        <f:facet name="header">商品名称</f:facet>
+        <h:outputText value="#{_item.product.name}"/>
+    </h:column>
+
+    <h:column>
+        <f:facet name="header">价格</f:facet>
+        <h:outputText value="#{_item.product.price}">
+            <f:convertNumber pattern="##.##"/>
+        </h:outputText>
+    </h:column>
+
+    <h:column>
+        <f:facet name="header">数量</f:facet>
+        <rich:inputNumberSpinner value="#{_item.num}" inputSize="3">
+            <a:ajax event="change" render="subTotal,totalAmount" listener="#{cart.updateCart()}"/>
+        </rich:inputNumberSpinner>
+    </h:column>
+    
+    <rich:column>
+        <f:facet name="header">小计</f:facet>
+        <h:outputText value="#{_item.product.price * _item.num}" id="subTotal">
+            <f:convertNumber pattern="####.00"/>
+        </h:outputText>
+    </rich:column>  
+    
+    <f:facet name="footer">
+    <rich:columnGroup>
+        <rich:column colspan="3" style="text-align:right">合计</rich:column>
+        <rich:column>
+            <h:outputText value="#{cart.totalAmount}" id="totalAmount">
+                <f:convertNumber pattern="####.00"/>
+            </h:outputText>
+        </rich:column>
+         </rich:columnGroup>
+    </f:facet>  
+</rich:dataTable>
+
+<div class="actionButtons">
+    <h:commandButton action="#{checkout.createOrder}" value="结算"/>
+</div>
+</h:form>
+</div>
+</ui:define>
+</ui:composition>

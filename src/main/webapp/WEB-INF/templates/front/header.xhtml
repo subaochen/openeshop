@@ -6,6 +6,15 @@
                  xmlns:h="http://java.sun.com/jsf/html"
                  xmlns:f="http://java.sun.com/jsf/core">
 
+<div id="welcome">
+    <h:form rendered="#{identity.loggedIn}">
+        欢迎您，<h:outputText value="#{currentUser.username}"/> #{' '}
+        <h:commandButton action="#{identity.logout}" value="退出"/>
+    </h:form>
+    
+    <h:link outcome="/login.jsf" value="登录" rendered="#{not identity.loggedIn}" style="float:right"/>
+</div>
+
 <div id="topmenu">
   <ul id="simple-menu">
     <li><a href="#" class="current"><span>首页</span></a></li>

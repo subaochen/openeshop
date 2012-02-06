@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a="http://richfaces.org/a4j"
+      template="/WEB-INF/templates/front/template.xhtml"> 
+<ui:define name="content"> 
+    
+<h1 class="title">提交订单</h1>
+
+<rich:panel>
+    <f:facet name="header">提交订单</f:facet>
+    
+    <h:outputLabel for="addr">收货地址：</h:outputLabel>
+    <h:inputText value="#{checkout.addr}" id="addr"/>    
+</rich:panel>
+<div class="actionButtons">
+    <h:commandButton action="#{checkout.submitOrder}" value="提交订单"/>
+</div>
+</h:form>
+</div>
+</ui:define>
+</ui:composition>

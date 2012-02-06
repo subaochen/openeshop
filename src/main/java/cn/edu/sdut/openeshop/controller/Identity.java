@@ -23,7 +23,7 @@ public class Identity {
 	@Named
 	@SessionScoped
 	@LoggedIn
-	private Member currentUser;
+	private Member currentUser = new Member();
 
 	/**
 	 * 登录
@@ -58,11 +58,11 @@ public class Identity {
 	}
 	
 	public boolean isLoggedIn(){
-		return currentUser != null;
+		return currentUser.getId() != null;
 	}
 	
 	public String logout(){
-		currentUser = null;
+		currentUser = new Member();
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("您已退出登录，请重新登录"));
 		return "/login.jsf";
 	}
