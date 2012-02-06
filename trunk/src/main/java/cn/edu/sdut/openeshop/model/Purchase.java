@@ -20,6 +20,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "purchase")
@@ -150,6 +151,15 @@ public class Purchase implements Serializable {
 
 	public void setShipNo(String shipNo) {
 		this.shipNo = shipNo;
+	}
+	
+	
+	public void caculateTotal(){
+		totalAmount = BigDecimal.ZERO;
+		for(PurchaseItem item:purchaseItems){
+			totalAmount = totalAmount.add(item.getProduct().getPrice().multiply(BigDecimal.valueOf(item.getNum())));
+		}
+		System.out.println("--------------------totalAmount=" + totalAmount);
 	}
 
 	@Override

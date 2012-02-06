@@ -16,6 +16,8 @@
 	    <li><h:outputLink value="#">#{_item.product.name}</h:outputLink></li>
 	    </ui:repeat>
     </ul>
+    
+    <h:link outcome="/cart.jsf" value=">>去结算" rendered="#{not cart.isEmpty}" style="float:right"/>
 </rich:panel>
 </a:outputPanel>
 </ui:composition>

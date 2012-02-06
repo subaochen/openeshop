@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import cn.edu.sdut.openeshop.model.Product;
+import cn.edu.sdut.openeshop.model.Purchase;
 import cn.edu.sdut.openeshop.model.PurchaseItem;
 
 /**
@@ -16,12 +17,14 @@ import cn.edu.sdut.openeshop.model.PurchaseItem;
  */
 public interface ShoppingCart {
 
+	public Purchase getOrder();
 	public boolean getIsEmpty();
 	public void addProduct(Product product, int num);
 	public List<PurchaseItem> getCart();
 	
-	public BigDecimal getTotal();
+	public BigDecimal getTotalAmount();
 	
+	public void updateCart();
 	public void resetCart();
 	
 	public void destroy();

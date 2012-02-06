@@ -30,7 +30,11 @@ import cn.edu.sdut.openeshop.model.PurchaseItem;
 public class ShoppingCartBean implements ShoppingCart {
 	@Inject Logger log;
 
-	Purchase order = new Purchase();
+	private Purchase order = new Purchase();
+	
+	public Purchase getOrder(){
+		return order;
+	}
 
 	@Override
 	public boolean getIsEmpty() {
@@ -41,7 +45,7 @@ public class ShoppingCartBean implements ShoppingCart {
 	public void addProduct(Product product, int num) {
 		order.addProduct(product, num);
 		log.info("adding product:" + product + ",num:" + num + ", current order:" + order);
-		
+		updateCart();
 	}
 
 	@Override
@@ -51,15 +55,18 @@ public class ShoppingCartBean implements ShoppingCart {
 
 
 	@Override
-	public BigDecimal getTotal() {
+	public BigDecimal getTotalAmount() {
 		return order.getTotalAmount();
+	}
+	
+	public void updateCart(){
+		order.caculateTotal();
 	}
 
 
 	@Override
 	public void resetCart() {
 		order = new Purchase();
-
 	}
 
 	@Override
