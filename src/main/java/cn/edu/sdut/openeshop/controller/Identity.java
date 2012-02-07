@@ -1,5 +1,7 @@
 package cn.edu.sdut.openeshop.controller;
 
+import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Model;
 import javax.enterprise.inject.Produces;
@@ -11,7 +13,9 @@ import javax.inject.Named;
 import cn.edu.sdut.openeshop.data.UserManager;
 import cn.edu.sdut.openeshop.model.Member;
 
-@Model
+@Named
+@SessionScoped
+@Stateful
 public class Identity {
 	@Inject
 	Credentials credentials;
@@ -19,11 +23,8 @@ public class Identity {
 	@Inject
 	UserManager um;
 
-	@Produces
-	@Named
-	@SessionScoped
-	@LoggedIn
-	private Member currentUser = new Member();
+
+	private Member currentUser;
 
 	/**
 	 * 登录
@@ -58,15 +59,19 @@ public class Identity {
 	}
 	
 	public boolean isLoggedIn(){
-		return currentUser.getId() != null;
+		System.out.println("isLoggedIn, currentUser=" + currentUser);
+		return currentUser != null;
 	}
 	
 	public String logout(){
-		currentUser = new Member();
+		currentUser = null;
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("您已退出登录，请重新登录"));
 		return "/login.jsf";
 	}
 
+	@Produces
+	@Named
+	@LoggedIn
 	public Member getCurrentUser() {
 		return currentUser;
 	}

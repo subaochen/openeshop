@@ -2,13 +2,14 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:a="http://richfaces.org/a4j"
       template="/WEB-INF/templates/front/template.xhtml"> 
 <ui:define name="content"> 
     
 <h1 class="title">提交订单</h1>
-
+<h:form>
 <rich:panel>
     <f:facet name="header">提交订单</f:facet>
     
@@ -19,6 +20,6 @@
     <h:commandButton action="#{checkout.submitOrder}" value="提交订单"/>
 </div>
 </h:form>
-</div>
+
 </ui:define>
 </ui:composition>
