@@ -3,6 +3,7 @@ package cn.edu.sdut.openeshop.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -20,6 +21,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 @Entity
@@ -36,6 +39,8 @@ public class Purchase implements Serializable {
 	private Member member;
 	private BigDecimal totalAmount;
 	private String shipNo;
+	private Date timeCreated;
+	private Date timeShipped;
 	private List<PurchaseItem> purchaseItems = new ArrayList<PurchaseItem>(0);
 	
 	public Purchase(){
@@ -169,6 +174,26 @@ public class Purchase implements Serializable {
 				+ ", payStatus=" + payStatus + ", member=" + member
 				+ ", totalAmount=" + totalAmount + ", shipNo=" + shipNo
 				+ ", purchaseItems size=" + purchaseItems.size() + "]";
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "time_created", length = 29)
+	public Date getTimeCreated() {
+		return timeCreated;
+	}
+
+	public void setTimeCreated(Date timeCreated) {
+		this.timeCreated = timeCreated;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "time_shipped", length = 29)
+	public Date getTimeShipped() {
+		return timeShipped;
+	}
+
+	public void setTimeShipped(Date timeShipped) {
+		this.timeShipped = timeShipped;
 	}
 	
 	

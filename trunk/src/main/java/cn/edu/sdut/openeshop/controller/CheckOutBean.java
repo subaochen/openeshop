@@ -1,5 +1,6 @@
 package cn.edu.sdut.openeshop.controller;
 
+import java.util.Date;
 import java.util.logging.Logger;
 
 import javax.ejb.Stateful;
@@ -41,17 +42,17 @@ public class CheckOutBean implements CheckOut {
 	public String createOrder() {
 		if(identity.isLoggedIn() == false) return "/login.jsf?redirect=true";		
 		currentOrder = cart.getOrder();
-		log.info("creating order:" + currentOrder + ",conversation id=" + conversation.getId());
 		return "/checkout.jsf";
 	}
 
 	@Override
 	public String submitOrder() {
-		log.info("submiting order:" + currentOrder + ",conversation id=" + conversation.getId());
 		currentOrder.setMember(currentUser);
 		currentOrder.setAddr(address.getAddr());
 		currentOrder.setAddrName(address.getAddrName());
 		currentOrder.setAddrTel(address.getAddrTel());
+		currentOrder.setTimeCreated(new Date());
+		currentOrder.setShipStatus("WAIT_FOR_SHIP");
 		em.persist(currentOrder);
 		
 		// 清空购物车
