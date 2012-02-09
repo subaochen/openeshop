@@ -5,8 +5,13 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:rich="http://richfaces.org/rich"
       xmlns:a="http://richfaces.org/a4j"
+      xmlns:s="http://jboss.org/seam/faces"
       template="/WEB-INF/templates/front/template.xhtml"> 
 <ui:define name="content"> 
+
+<f:metadata>
+    <s:viewAction action="#{checkout.wire}"/>
+</f:metadata>
     
 <h1 class="title">结算</h1>
 
