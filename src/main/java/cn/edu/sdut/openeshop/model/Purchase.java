@@ -36,6 +36,7 @@ public class Purchase implements Serializable {
 	private String addr;
 	private String shipStatus;
 	private String payStatus;
+	private String status;// 订单状态，enabled,disabled
 	private Member member;
 	private BigDecimal totalAmount;
 	private String shipNo;
@@ -194,6 +195,14 @@ public class Purchase implements Serializable {
 
 	public void setTimeShipped(Date timeShipped) {
 		this.timeShipped = timeShipped;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 	

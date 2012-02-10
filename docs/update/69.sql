@@ -1,0 +1,1 @@
+alter table purchase add column status varchar(32);
