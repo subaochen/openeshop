@@ -1,6 +1,7 @@
 package cn.edu.sdut.openeshop.data;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -34,6 +35,10 @@ public class OrderManager {
 	@Inject
 	@LoggedIn
 	Member currentUser;
+	
+	private String searchFor;
+	
+	private List<Purchase> resultList = new ArrayList<Purchase>(0);
 
 	public void addToCart(Product product) {
 		log.info("adding product:" + product + " to cart");
@@ -49,5 +54,53 @@ public class OrderManager {
 						"from Purchase purchase where purchase.member.id=:memberId")
 				.setParameter("memberId", currentUser.getId()).getResultList();
 		return list;
+	}
+	
+	public List<Purchase> getResultList() {
+		log.info("searchFor=" + searchFor);
+		if (resultList.size() != 0)
+			return resultList;
+
+		if (searchFor != null)
+			return em
+					.createQuery(
+							"from Purchase purchase where lower(addr) like lower(concat(concat('%',:addr),'%'))")
+					.setParameter("addr", searchFor).getResultList();
+
+
+		return em.createQuery("from Purchase purchase").getResultList();
+	}
+	
+	/**
+	 * 发货订单
+	 * @param id
+	 */
+	public void ship(Long id){
+		Purchase order = findOrder(id);
+		order.setTimeShipped(new Date());
+		order.setShipStatus("ORDER_SHIPPED");
+		em.persist(order);
+	}
+	
+	/**
+	 * 作废订单
+	 * @param id
+	 */
+	public void discard(Long id){
+		Purchase order = findOrder(id);
+		order.setStatus("DISABLED");
+		em.persist(order);		
+	}
+	
+	public Purchase findOrder(Long id){
+		return em.find(Purchase.class, id);
+	}
+
+	public String getSearchFor() {
+		return searchFor;
+	}
+
+	public void setSearchFor(String searchFor) {
+		this.searchFor = searchFor;
 	}
 }

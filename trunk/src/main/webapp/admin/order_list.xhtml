@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/WEB-INF/templates/backend/template.xhtml">
+<ui:define name="content">
+    <h1 class="title">订单列表</h1>
+    <h:form>
+    <div class="search_bar">
+        <h:inputText value="#{orderManager.searchFor}"/>
+        <h:commandButton action="#{orderManager.search}" value="搜索"/>
+    </div>
+    <br style="clear:both"/>
+    <a:outputPanel id="orderList">
+	<h:dataTable value="#{orderManager.resultList}" var="_order" border="1" cellspacing="0" width="100%">
+		<h:column>
+			<f:facet name="header">ID</f:facet>
+			<h:outputText value="#{_order.id}" />
+		</h:column>
+
+        <h:column>
+            <f:facet name="header">下单日期</f:facet>
+            <h:outputText value="#{_order.timeCreated}" >
+                <f:convertDateTime pattern="yyyy-MM-dd HH:mm"/>
+            </h:outputText>
+        </h:column>
+        
+		<h:column>
+			<f:facet name="header">用户名</f:facet>
+			<h:outputText value="#{_order.member.username}" />
+		</h:column>
+
+        <h:column>
+            <f:facet name="header">金额</f:facet>
+            <h:outputText value="#{_order.totalAmount}" >
+                <f:convertNumber pattern="##.00"/>
+            </h:outputText>
+        </h:column>
+        
+        <h:column>
+            <f:facet name="header">发货状态</f:facet>
+            <h:outputText value="#{_order.shipStatus}" />
+        </h:column>     
+
+        <h:column>
+            <f:facet name="header">订单状态</f:facet>
+            <h:outputText value="#{_order.status}" />
+        </h:column>               
+        
+        <h:column>
+            <f:facet name="header">操作</f:facet>
+            <a:commandLink action="#{orderManager.ship(_order.id)}" value="发货" render="orderList"/>
+            #{' '}
+            <a:commandLink action="#{orderManager.discard(_order.id)}" value="作废" render="orderList"/>
+        </h:column>
+
+	</h:dataTable>
+    </a:outputPanel>	
+	</h:form>
+	
+</ui:define>
+</ui:composition>
