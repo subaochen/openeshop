@@ -5,15 +5,14 @@
                  xmlns:ui="http://java.sun.com/jsf/facelets"
                  xmlns:h="http://java.sun.com/jsf/html"
                  xmlns:f="http://java.sun.com/jsf/core">
-<ui:include src="/WEB-INF/templates/welcome.xhtml"/>
-
-<div id="topmenu">
-  <ul id="simple-menu">
-    <li><h:link outcome="/category.jsf" value="首页"/></li>
-    <li><a href="#" class="current"><span>商品管理</span></a></li>
-    <li><a href="#"><span>订单管理</span></a></li>
-    <li><a href="#"><span>系统管理</span></a></li>
-  </ul>
+<div id="welcome">
+    <h:form rendered="#{identity.loggedIn}">
+        欢迎您，<h:outputText value="#{currentUser.username}"/> #{' '}
+        <h:commandButton action="#{identity.logout}" value="退出"/>
+    </h:form>
+    
+    <h:link outcome="/login.jsf" value="登录" rendered="#{not identity.loggedIn}" style="float:right"/>
+    
 </div>
 
 </ui:composition>
