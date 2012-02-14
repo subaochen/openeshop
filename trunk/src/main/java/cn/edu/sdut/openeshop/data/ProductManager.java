@@ -8,9 +8,11 @@ import java.util.logging.Logger;
 
 import javax.ejb.Stateful;
 import javax.enterprise.context.Conversation;
+import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Event;
 import javax.enterprise.inject.Any;
+import javax.enterprise.inject.Produces;
 import javax.enterprise.util.AnnotationLiteral;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -20,6 +22,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import cn.edu.sdut.openeshop.controller.Deleted;
+import cn.edu.sdut.openeshop.controller.Selected;
 import cn.edu.sdut.openeshop.controller.Updated;
 import cn.edu.sdut.openeshop.model.GoodsImg;
 import cn.edu.sdut.openeshop.model.Product;
@@ -45,6 +48,12 @@ public class ProductManager {
 	Event<Product> productEvent;
 
 	private List<Product> resultList = new ArrayList<Product>(0);
+	
+	@Produces
+	@ConversationScoped
+	@Selected
+	@Named
+	private static Product selectedProduct;
 
 	private Product instance = new Product();
 	private Long productId;
@@ -66,7 +75,7 @@ public class ProductManager {
 	}
 
 	private void loadInstance(Long id) {
-		instance = em.find(Product.class, id);
+		selectedProduct = instance = em.find(Product.class, id);
 	}
 
 	public List<Product> getResultList() {

@@ -7,9 +7,7 @@
       template="/WEB-INF/templates/front/template.xhtml"> 
 <ui:define name="content"> 
 
-<f:metadata>
-    <f:viewParam name="goodsId" value="#{productManager.goodsId}"/>
-</f:metadata>
+
     
 <h1 class="title">产品列表</h1>
 
@@ -19,7 +17,10 @@
 <ui:repeat value="#{productManager.resultList}" var="_product">
     <li>
         <div class="productImage">
-            <img src="/upload/#{_product.mainImageUrl}" width="100" height="100"/>
+            <h:link outcome="/product.jsf">
+                <f:param name="productId" value="#{_product.id}"/>
+                <img src="/upload/#{_product.mainImageUrl}" width="100" height="100"/>
+            </h:link>
         </div>
         <p class="productDesc">#{_product.name}</p>
         <span class="price">价格：#{_product.price}</span>
