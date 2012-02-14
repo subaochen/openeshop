@@ -163,6 +163,7 @@ public class Purchase implements Serializable {
 	public void caculateTotal(){
 		totalAmount = BigDecimal.ZERO;
 		for(PurchaseItem item:purchaseItems){
+			System.out.println("caculateTotal, product=" + item.getProduct());
 			totalAmount = totalAmount.add(item.getProduct().getPrice().multiply(BigDecimal.valueOf(item.getNum())));
 		}
 		System.out.println("--------------------totalAmount=" + totalAmount);

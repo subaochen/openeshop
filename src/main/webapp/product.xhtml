@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a="http://richfaces.org/a4j"
+      xmlns:s="http://jboss.org/seam/faces"
+      template="/WEB-INF/templates/front/template.xhtml"> 
+<ui:define name="content"> 
+
+<f:metadata>
+    <f:viewParam name="productId" value="#{productManager.productId}"/>
+    <s:viewAction action="#{productManager.wire}"/>
+</f:metadata>
+        
+<h1 class="title">产品详情</h1>
+<h:form>
+<div class="product">
+    <div class="product_img"><h:graphicImage value="/upload/#{selectedProduct.mainImageUrl}" /></div>
+    <div class="product_short_desc">
+        <div class="product_name"><h:outputText value="#{selectedProduct.name}"/></div>
+        <ul>
+            <li>编码：<h:outputText value="#{selectedProduct.code}"/></li>
+            <li>价格：<h:outputText value="#{selectedProduct.price}"><f:convertNumber pattern="##.00"/></h:outputText></li>
+        </ul>
+        
+        <a:commandButton action="#{orderManager.addToCart(selectedProduct)}" value="放入购物车" render="cart"/>
+    </div>
+    
+    <div class="product_long_desc">
+        <h2>商品详情</h2>
+        <h:outputText value="#{selectedProduct.description}" />
+    </div>          
+</div>
+</h:form>
+</ui:define>
+</ui:composition>

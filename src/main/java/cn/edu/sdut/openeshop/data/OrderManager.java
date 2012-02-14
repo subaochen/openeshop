@@ -41,7 +41,7 @@ public class OrderManager {
 	private List<Purchase> resultList = new ArrayList<Purchase>(0);
 
 	public void addToCart(Product product) {
-		log.info("adding product:" + product + " to cart");
+		log.info("---------------------------adding product:" + product + " to cart");
 		cart.addProduct(product, 1);
 	}
 
